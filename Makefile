@@ -1,19 +1,20 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    fake_file_name (file name is useless too)          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: 42header-remover <whatever@example.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/14 19:59:25 by junseo            #+#    #+#              #
-#    Updated: 2022/09/15 15:21:19 by junseo           ###   ########.fr        #
+#    Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#              #
+#    Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
 
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -Lreadline
+CFLAGS			=	-Wall -Wextra -Werror
+READLINE		=	-lreadline
 INCLUDE 		=	-I./includes
 
 FILES			=	minishell	\
@@ -27,7 +28,7 @@ OBJS			=	$(SRCS:.c=.o)
 all		: $(NAME)
 
 $(NAME)	:  $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(READLINE) -o $@ $^
 
 %.o		: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
