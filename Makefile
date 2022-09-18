@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    fake_file_name (file name is useless too)          :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: 42header-remover <whatever@example.com>    +#+  +:+       +#+         #
+#    By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#              #
-#    Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr        #
+#    Updated: 2022/09/18 21:18:18 by junseo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ NAME	= minishell
 
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
-READLINE		=	-lreadline
+
 INCLUDE 		=	-I./includes
 
 FILES			=	minishell	\
+					utils/init_env
 
 DIR_SRCS		=	./srcs/
 
@@ -25,18 +26,25 @@ SRCS			=	$(addprefix $(DIR_SRCS), $(addsuffix .c, $(FILES)))
 
 OBJS			=	$(SRCS:.c=.o)
 
+LIBFT_DIR		=	./libft/
+
+LIBRARY			=	-lreadline -L$(LIBFT_DIR) -lft
+
 all		: $(NAME)
 
 $(NAME)	:  $(OBJS)
-	$(CC) $(CFLAGS) $(READLINE) -o $@ $^
+	$(MAKE) -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) $(LIBRARY) -o $@ $^
 
 %.o		: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
 
 clean	:
+	$(MAKE) clean -C $(LIBFT_DIR)
 	rm -f $(OBJS)
 
 fclean	: clean
+	$(MAKE) fclean -C $(LIBFT_DIR)
 	rm -f $(NAME)
 
 re		:
