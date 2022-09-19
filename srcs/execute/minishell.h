@@ -1,6 +1,19 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <unistd.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <termios.h>
+# include <errno.h>
+# include <string.h>
+
+# define TRUE 1
+# define FALSE 0
 enum	e_token_type
 {
 	TO_COMMON,
