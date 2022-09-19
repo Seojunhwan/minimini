@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/18 21:26:12 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/19 20:56:29 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ struct s_env_node
 	t_env_node	*next;
 };
 
-
 struct s_state
 {
 	t_env_node		**env_head;
@@ -91,10 +90,11 @@ struct s_state
 };
 
 // env
-char	*get_env_key(char *env);
-char	*get_env_value(char *env);
+char		*get_env_key(char *env);
+char		*get_env_value(char *env);
 t_env_node	*create_env(char *env);
 
+void	*ft_malloc(size_t size, size_t n);
 
 
 #endif

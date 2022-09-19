@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/18 20:22:33 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/19 22:09:36 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 void	init_env(char **envp)
 {
-	char		**temp;
 	t_env_node	*curr;
 	t_env_node	*node;
+	t_env_node	*temp_node;
+	size_t		i;
 
-	temp = envp;
+	i = 0;
 	curr = (t_env_node *)malloc(sizeof(t_env_node));
 	g_state.env_head = &curr;
-	curr->key = get_env_key(*temp);
-	curr->value = get_env_value(*temp);
-	curr->next = 0;
-	while (*(++temp))
+	temp_node = curr;
+	curr->key = get_env_key(envp[i]);
+	curr->value = get_env_value(envp[i]);
+	curr->next = NULL;
+	while (envp[++i])
 	{
-		node = create_env(*temp);
+		node = create_env(envp[i]);
 		if (node == NULL)
 			return ;
 		curr->next = node;
@@ -34,6 +36,11 @@ void	init_env(char **envp)
 	}
 	node = create_env(NULL);
 	curr->next = node;
+	while (temp_node->next != NULL)
+	{
+		printf("%s=%s\n", temp_node->key, temp_node->value);
+		temp_node = temp_node->next;
+	}
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 15:06:03 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/18 21:34:16 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/19 21:50:04 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,17 @@ char	*get_env_key(char *env)
 
 char	*get_env_value(char *env)
 {
-	size_t	i;
+	// size_t	i;
 	size_t	len;
-	char	*key;
+	char	*value;
 
 	len = 0;
 	while (env[len] != 0 && env[len] != '=')
-		++len;
+		len++;
 	if (env[len] == '\0')
 		return (NULL);
-	key = (char *)ft_malloc(sizeof(char), len + 1);
-	i = 0;
-	while (i < len)
-	{
-		key[i] = env[i];
-		++i;
-	}
-	key[i] = 0;
-	return (key);
+	value = ft_substr(env, len, ft_strlen(env));
+	return (value);
 }
 
 t_env_node	*create_env(char *env)

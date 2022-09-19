@@ -6,7 +6,7 @@
 #    By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#              #
-#    Updated: 2022/09/18 21:18:18 by junseo           ###   ########.fr        #
+#    Updated: 2022/09/19 20:08:10 by junseo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ CFLAGS			=	-Wall -Wextra -Werror
 INCLUDE 		=	-I./includes
 
 FILES			=	minishell	\
-					utils/init_env
+					utils/init_env	\
+					utils/custom_fuc	
+					
 
 DIR_SRCS		=	./srcs/
 
