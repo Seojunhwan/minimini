@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   custom_fuc.c                                       :+:      :+:    :+:   */
+/*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 20:04:05 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/25 02:18:17 by junseo           ###   ########.fr       */
+/*   Created: 2022/09/25 02:09:40 by junseo            #+#    #+#             */
+/*   Updated: 2022/09/25 02:21:34 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	*ft_malloc(size_t size, size_t n)
+void	exit_with_err(char *msg, char *msg2, int error_no)
 {
-	void	*ret;
-
-	ret = malloc(size * n);
-	if (ret == NULL)
-		exit_with_err("malloc()", strerror(errno), EXIT_FAILURE);
-	return (ret);
+	ft_putstr_fd("minishell :", STDERR_FILENO);
+	ft_putstr_fd(msg, STDERR_FILENO);
+	if (msg2)
+	{
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(msg, STDERR_FILENO);
+	}
+	exit(error_no);
 }

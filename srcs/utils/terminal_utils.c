@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   custom_fuc.c                                       :+:      :+:    :+:   */
+/*   terminal_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 20:04:05 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/25 02:18:17 by junseo           ###   ########.fr       */
+/*   Created: 2022/09/25 01:51:55 by junseo            #+#    #+#             */
+/*   Updated: 2022/09/25 01:53:59 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	*ft_malloc(size_t size, size_t n)
+void	enable_echoctl(void)
 {
-	void	*ret;
+	struct termios	attr;
 
-	ret = malloc(size * n);
-	if (ret == NULL)
-		exit_with_err("malloc()", strerror(errno), EXIT_FAILURE);
-	return (ret);
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+}
+
+void	disable_echoctl(void)
+{
+	struct termios	attr;
+
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
 }

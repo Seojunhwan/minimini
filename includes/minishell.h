@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/19 20:56:29 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/25 02:36:10 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h> // error?
+# include <errno.h> // error
 # include "../libft/libft.h"
 
 enum	e_token_type
@@ -48,7 +50,7 @@ enum	e_cmd_type
 
 typedef struct s_token_node		t_token_node;
 typedef struct s_cmd_node		t_cmd_node;
-typedef struct s_cmd_line_list	t_cmd_line_list;
+typedef struct s_cmd_list	t_cmd_list;
 typedef struct s_state			t_state;
 typedef struct s_env_node		t_env_node;
 t_state							g_state;
@@ -70,7 +72,7 @@ struct s_cmd_node
 	t_cmd_node		*next;
 };
 
-struct s_cmd_line_list
+struct s_cmd_list
 {
 	int			size;
 	t_cmd_node	**cmd_heads;
@@ -90,11 +92,26 @@ struct s_state
 };
 
 // env
-char		*get_env_key(char *env);
-char		*get_env_value(char *env);
-t_env_node	*create_env(char *env);
+void		init_env(char **envp);
+char		*extract_env_key(char *env);
+char		*extract_env_value(char *env);
+t_env_node	*create_env_node(char *env);
 
+// echoctl
+void	enable_echoctl(void);
+void	disable_echoctl(void);
+
+// parse
+void	parse(t_cmd_list **cmd_list);
+
+// error
+void	exit_with_err(char *msg, char *msg2, int error_no);
+
+// custom utils
 void	*ft_malloc(size_t size, size_t n);
+
+// initializer
+t_cmd_list *init_cmd();
 
 
 #endif
