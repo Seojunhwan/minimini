@@ -12,6 +12,7 @@ FILES		=	ft_strlen \
 				ft_tolower \
 				ft_memset \
 				ft_strncmp \
+				ft_strcmp \
 				ft_memchr \
 				ft_bzero \
 				ft_memcpy \

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:43:57 by junseo            #+#    #+#             */
-/*   Updated: 2022/08/20 15:45:49 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/25 01:02:10 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_isalnum(int c);
 int		ft_isprint(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_atoi(const char *str);
