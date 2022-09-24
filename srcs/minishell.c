@@ -6,59 +6,45 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/19 22:09:36 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/25 02:35:20 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	init_env(char **envp)
-{
-	t_env_node	*curr;
-	t_env_node	*node;
-	t_env_node	*temp_node;
-	size_t		i;
-
-	i = 0;
-	curr = (t_env_node *)malloc(sizeof(t_env_node));
-	g_state.env_head = &curr;
-	temp_node = curr;
-	curr->key = get_env_key(envp[i]);
-	curr->value = get_env_value(envp[i]);
-	curr->next = NULL;
-	while (envp[++i])
-	{
-		node = create_env(envp[i]);
-		if (node == NULL)
-			return ;
-		curr->next = node;
-		curr = curr->next;
-	}
-	node = create_env(NULL);
-	curr->next = node;
-	while (temp_node->next != NULL)
-	{
-		printf("%s=%s\n", temp_node->key, temp_node->value);
-		temp_node = temp_node->next;
-	}
-}
-
 int	main(int argc, char **argv, char **envp)
 {
-	// t_cmd_line_list	*cmd_list;
-	// char			*line;
+	t_cmd_list	*cmd_list;
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	init_env(envp);
 
+	init_env(envp);
+	// if (get_env_via_key("OLDPWD") == NULL)
+		// 환경변수 추가하기
+	while (1)
+	{
+		disable_echoctl();
+		cmd_list = init_cmd();
+		parse(&cmd_list);
+		enable_echoctl();
+	}
 	return (0);
 }
 
 	/*
-		1. 환경변수 처리
+		1. argc 예외처리
+		2. 환경변수 처리
+			a. 환경변수 파싱
+			b. 환경변수 PWD 확인 후 없으면 넣기
 
+		3. readline 돌리기
+			a. 입력 받기
+			b. 토큰화하기
+			c. 명령어 형태로 만들기
+				A. 파이프 확인 후 미리 공간 할당
+				B. 파이프 단위로 토큰 확인 후 명령어 형태로 변환
+			
 
 	*/
 
