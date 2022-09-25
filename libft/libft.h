@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:43:57 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/25 01:02:10 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/25 02:49:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_list
 }				t_list;
 
 int		ft_isalpha(int c);
+int		ft_isspace(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
