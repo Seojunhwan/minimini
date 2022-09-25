@@ -80,7 +80,7 @@ static void	change_dir(char *str)
 	}
 }
 
-void	func_cd(t_cmd_node *head)
+void	builtin_cd(t_cmd_node *head)
 {
 	t_cmd_node	*curr_node;
 	int			ret;

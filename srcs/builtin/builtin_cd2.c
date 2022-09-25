@@ -26,7 +26,7 @@ static void	change_dir_single(char *str)
 	}
 }
 
-void	func_cd_single_cmd(t_cmd_node *head)
+void	builtin_cd_one_cmd(t_cmd_node *head)
 {
 	t_cmd_node	*curr_node;
 	int			ret;
