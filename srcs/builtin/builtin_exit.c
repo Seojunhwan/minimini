@@ -55,7 +55,7 @@ static long long	ft_atoll(char *str)
 	return (ret);
 }
 
-void	func_exit_single_cmd(t_cmd_node *head)
+void	builtin_exit_one_cmd(t_cmd_node *head)
 {
 	long long	first_argv;
 	int			cnt;
@@ -82,7 +82,7 @@ void	func_exit_single_cmd(t_cmd_node *head)
 	exit(g_state.exit_status);
 }
 
-void	func_exit(t_cmd_node *head)
+void	builtin_exit(t_cmd_node *head)
 {
 	long long	first_argv;
 	int			cnt;

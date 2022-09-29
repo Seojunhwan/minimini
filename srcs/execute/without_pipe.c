@@ -43,7 +43,7 @@ void	execute_without_pipe(t_cmd_list *list)
 	{
 		//포크 -> 자식 프로세스, 부모프로세스 실행
 		pid = fork();
-		if (pid < -1)
+		if (pid < 0)
 			exit(1);
 		if (pid == 0)
 		{
