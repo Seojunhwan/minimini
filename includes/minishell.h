@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:48:15 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 20:49:03 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void		builtin_export_one_cmd(t_cmd_node *node);
 void		builtin_export(t_cmd_node *node);
 t_env_node	*is_in_envp(char *str);
 int			is_right_form(char *str);
+void		**new_export(char *str);
 //builtin |unset
 void		builtin_unset_single_cmd(t_cmd_node *head);
 void		builtin_unset(t_cmd_node *head);
@@ -219,6 +220,9 @@ void		free_variables(int size, int ***fd, pid_t **pid, int **status);
 void		close_wait(int ***fd, pid_t **pid, int *status, int size);
 void		pipe_process(int size, int ***fd);
 void		malloc_variables(int size, int ***fd, pid_t **pid, int **status);
+//utils | free
+void		free_array(int **tmp, int idx);
+void		free_split(char **tmp);
 //utils | heredoc
 int			do_heredoc(t_cmd_node **curr_cmd);
 void		move_heredoc_curser(int fd);

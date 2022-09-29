@@ -6,7 +6,7 @@
 #    By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#              #
-#    Updated: 2022/09/29 19:52:20 by junseo           ###   ########.fr        #
+#    Updated: 2022/09/29 20:48:27 by junseo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,10 @@ DIR_PARSE		=	parse/
 DIR_ENV			=	env/
 DIR_UTIL		=	utils/
 DIR_HEREDOC		=	heredoc/
+DIR_BUILTIN		=	builtin/
+DIR_EXCUTE		=	execute/
 
-PARSE_FILSE		=	cmd_checker	\
+PARSE_FILES		=	cmd_checker	\
 					command_list	\
 					dollar	\
 					initializer	\
@@ -34,6 +36,25 @@ PARSE_FILSE		=	cmd_checker	\
 					token_list	\
 					tokenizer	\
 					transformer
+
+BUILTIN_FILES	=	builtin	\
+					builtin_cd	\
+					builtin_cd2	\
+					builtin_echo	\
+					builtin_env	\
+					builtin_exit	\
+					builtin_export	\
+					builtin_pwd	\
+					builtin_unset
+
+EXECUTE_FILES 	=	check_cmd	\
+					execute	\
+					malloc	\
+					pipe_utils	\
+					redirect_in	\
+					redirect_out	\
+					with_pipe	\
+					without_pipe
 
 ENV_FILES		=	env_utils	\
 					initializer
@@ -47,13 +68,16 @@ UTIL_FILES		=	custom_fuc	\
 					terminal_utils	\
 					token	\
 					heredoc	\
-					signal
+					signal	\
+					free
 
 SRCS			=	$(addprefix $(DIR_BASE), $(addsuffix .c, $(NAME)))	\
-					$(addprefix $(DIR_BASE), $(addprefix $(DIR_PARSE), $(addsuffix .c, $(PARSE_FILSE))))	\
+					$(addprefix $(DIR_BASE), $(addprefix $(DIR_PARSE), $(addsuffix .c, $(PARSE_FILES))))	\
 					$(addprefix $(DIR_BASE), $(addprefix $(DIR_ENV), $(addsuffix .c, $(ENV_FILES))))	\
 					$(addprefix $(DIR_BASE), $(addprefix $(DIR_UTIL), $(addsuffix .c, $(UTIL_FILES))))	\
 					$(addprefix $(DIR_BASE), $(addprefix $(DIR_HEREDOC), $(addsuffix .c, $(HEREDOC_FILES))))	\
+					$(addprefix $(DIR_BASE), $(addprefix $(DIR_EXCUTE), $(addsuffix .c, $(EXECUTE_FILES))))	\
+					$(addprefix $(DIR_BASE), $(addprefix $(DIR_BUILTIN), $(addsuffix .c, $(BUILTIN_FILES))))
 
 OBJS			=	$(SRCS:.c=.o)
 

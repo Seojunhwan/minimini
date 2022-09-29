@@ -107,7 +107,7 @@ t_env_node	*is_in_envp(char *str)
 	return (NULL);
 }
 
-static void	**new_export(char *str)
+void	**new_export(char *str)
 {
 	t_env_node	*new_node;
 	t_env_node	*curr;

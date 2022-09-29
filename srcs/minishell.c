@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/29 19:34:59 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 20:37:27 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_env(envp);
-	// if (get_env_via_key("OLDPWD") == NULL)
-		// 환경변수 추가하기
+	if (get_env_via_key("OLDPWD") == NULL)
+		new_export(ft_strjoin("OLDPWD=", get_pwd()));
 	while (1)
 	{
 		disable_echoctl();
@@ -58,6 +58,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		enable_echoctl();
+		execute_cmd(cmd_list);
 		clear_cmd(cmd_list);
 	}
 	return (0);
