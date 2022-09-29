@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/29 20:52:32 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/30 04:19:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,33 @@ static void	clear_cmd(t_cmd_list *cmd_line_list)
 	cmd_line_list = 0;
 }
 
+// void	test(t_cmd_list *p)
+// {
+// 	char	*table[] = {
+// 				"COMMON",
+// 				"REDIRIN",
+// 				"REDIROUT",
+// 				"HEREDOC",
+// 				"APPEND",
+// 				"REDIRARG",
+// 				"BUILTIN",
+// 				"OPTION"
+// 	};
+// 	// t_cmd_node **curr = p->cmd_heads;
+// 	int i = 0;
+// 	while (i < p->size)
+// 	{
+// 		t_cmd_node *save = p->cmd_heads[i];
+// 		while (save)
+// 		{
+// 			printf("[%s], %s ", save->cmd, table[save->type]);
+// 			save = save->next;
+// 		}
+// 		i++;
+// 		printf("\n\n");
+// 	}
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_cmd_list	*cmd_list;
@@ -46,8 +73,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_env(envp);
-	if (get_env_via_key("OLDPWD") == NULL)
-		new_export(ft_strjoin("OLDPWD=", get_pwd()));
+	// if (get_env_via_key("OLDPWD") == NULL)
+	// 	new_export(ft_strdup("OLDPWD"), get_pwd());
 	while (1)
 	{
 		disable_echoctl();
@@ -58,6 +85,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		enable_echoctl();
+		// test(cmd_list);
 		execute_cmd(cmd_list);
 		clear_cmd(cmd_list);
 	}
