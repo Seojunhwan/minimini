@@ -6,7 +6,7 @@
 #    By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#              #
-#    Updated: 2022/09/26 05:33:32 by junseo           ###   ########.fr        #
+#    Updated: 2022/09/29 17:07:11 by junseo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,14 +51,14 @@ all		: $(NAME)
 
 $(NAME)	:  $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(LIBRARY) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBRARY)
 
 debug	: $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(LIBRARY) -o $(NAME) $^
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(NAME) $^ $(LIBRARY) 
 
 %.o		: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
+	$(CC) $(CFLAGS) $(INCLUDE) -g -c -o $@ $^
 
 clean	:
 	$(MAKE) clean -C $(LIBFT_DIR)
