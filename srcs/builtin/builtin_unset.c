@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static int	unset_error(char *cmd)
 {
@@ -23,6 +23,21 @@ static int	builtin_unset_2(t_cmd_node *head, int flag)
 	return (flag);
 }
 
+static int	is_valid_env(char *str)
+{
+	int	i;
+
+	i = -1;
+	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
+		return (FALSE);
+	while (str[++i])
+	{
+		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
 void	builtin_unset(t_cmd_node *head)
 {
 	int			flag;
@@ -32,28 +47,42 @@ void	builtin_unset(t_cmd_node *head)
 		exit(1);
 }
 
+void	remove_node_in_envp(t_env_node *node)
+{
+	t_env_node	*prev;
+	
+	if (node == NULL)
+		return ;
+	if (node == *(g_state.env_head))
+		prev = NULL;
+	else
+	{
+		prev = *(g_state.env_head);
+		while (prev->next != node)
+			prev = prev->next;
+	}
+	if (prev == NULL)
+		*g_state.env_head = node->next;
+	else
+		prev->next = node->next;
+	free(node->key);
+	free(node->value);
+	free(node);
+}
+
 void	builtin_unset_single_cmd(t_cmd_node *head)
 {
-	int			loc;
 	t_cmd_node	*curr_node;
+	t_env_node	*node_in_envp;
 
 	curr_node = head->next;
 	while (curr_node != NULL)
 	{
 		if (is_valid_env(curr_node->cmd) == TRUE)
 		{
-			loc = is_str_in_envp(curr_node->cmd);
-			if (loc != FALSE)
-			{
-				while (loc < envp_cnt() - 1)
-				{
-					free(g_state.envp[loc]);
-					g_state.envp[loc] = ft_strdup(g_state.envp[loc + 1]);
-					loc++;
-				}
-				free(g_state.envp[envp_cnt() - 1]);
-				g_state.envp[envp_cnt() - 1] = NULL;
-			}
+			node_in_envp = is_in_envp(curr_node->cmd);
+			if (node_in_envp != NULL)
+				remove_node_in_envp(node_in_envp);
 		}
 		else if (is_right_form(curr_node->cmd) == FALSE)
 			unset_error_single(curr_node->cmd);

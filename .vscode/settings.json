@@ -3,6 +3,8 @@
     "minishell.h": "c",
     "readline.h": "c",
     "chrono": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "__config": "c",
+    "__node_handle": "c"
   }
 }

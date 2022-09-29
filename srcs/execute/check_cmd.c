@@ -1,26 +1,26 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-char	*get_path(char *key)
-{
-	int		i;
-	char	*ret;
+// static char	*get_path(char *key)
+// {
+// 	int		i;
+// 	char	*ret;
 
-	ret = NULL;
-	i = -1;
-	while (g_state.envp[++i])
-	{
-		if ((ft_strncmp(key, g_state.envp[i], ft_strlen(key)) == 0) \
-		&& g_state.envp[i][ft_strlen(key)] == '=')
-		{
-			ret = ft_substr(g_state.envp[i], key_len(g_state.envp[i]) + \
-			1, value_len(g_state.envp[i]));
-			break ;
-		}
-	}
-	return (ret);
-}
+// 	ret = NULL;
+// 	i = -1;
+// 	while (g_state.envp[++i])
+// 	{
+// 		if ((ft_strncmp(key, g_state.envp[i], ft_strlen(key)) == 0) \
+// 		&& g_state.envp[i][ft_strlen(key)] == '=')
+// 		{
+// 			ret = ft_substr(g_state.envp[i], key_len(g_state.envp[i]) + \
+// 			1, value_len(g_state.envp[i]));
+// 			break ;
+// 		}
+// 	}
+// 	return (ret);
+// }
 
-void	path_error(char *str, char *cmd)
+static void	path_error(char *str, char *cmd)
 {
 	if (str == NULL)
 	{
@@ -31,7 +31,7 @@ void	path_error(char *str, char *cmd)
 	}
 }
 
-char	*is_valid_cmd_path(char *cmd)
+static char	*is_valid_cmd_path(char *cmd)
 {
 	char		**split_path;
 	int			i;
@@ -39,7 +39,7 @@ char	*is_valid_cmd_path(char *cmd)
 	char		*str2;
 	struct stat	s;
 
-	str = get_path("PATH");
+	str = get_env_via_key("PATH");
 	path_error(str, cmd);
 	split_path = ft_split(str, ':');
 	free(str);

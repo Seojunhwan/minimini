@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	pipe_process(int size, int ***fd)
 {

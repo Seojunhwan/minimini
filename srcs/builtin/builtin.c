@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 
 void	execute_one_builtin(t_cmd_node	*node) //redirection 없는 경우

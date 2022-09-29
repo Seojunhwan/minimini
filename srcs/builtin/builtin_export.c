@@ -1,18 +1,21 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	export_wihtout_arg(t_cmd_node *head)
+static void	export_wihtout_arg(t_cmd_node *head)
 {
-	int	i;
+	t_env_node	*node;
 
 	if (head->next == NULL)
 	{
-		i = 0;
-		while (g_state.envp[i])
-			printf("declare -x %s\n", g_state.envp[i++]);
+		node = *(g_state.env_head);
+		while (node)
+		{
+			printf("declare -x %s=%s\n",node->key, node->value);
+			node = node->next;
+		}
 	}
 }
 
-int	has_equal_sign(char *str)
+static int	has_equal_sign(char *str)
 {
 	int	i;
 
@@ -84,57 +87,66 @@ void	builtin_export(t_cmd_node *node)
 		exit(1);
 }
 
-int	is_in_envp(char *str)
+t_env_node	*is_in_envp(char *str)
 {
-	char	**split;
-	int		i;
+	t_env_node	*node;
+	char		**split;
 
-	i = -1;
+	node = *(g_state.env_head);
 	split = ft_split(str, '=');
-	while (g_state.envp[++i])
+	while (node)
 	{
-		if (ft_strncmp(g_state.envp[i], split[0], ft_strlen(split[0])) == 0)
+		if (ft_strncmp(node->key, split[0], ft_strlen(split[0])) == 0)
 		{
 			free_split(split);
-			return (i);
+			return (node);
 		}
+		node = node->next;
 	}
 	free_split(split);
-	return (-1);
+	return (NULL);
 }
 
-char	**new_export(char *str)
+static void	**new_export(char *str)
 {
-	int		i;
-	int		cnt;
-	char	**ret;
+	t_env_node	*new_node;
+	t_env_node	*curr;
 
-	i = -1;
-	cnt = 0;
-	while (g_state.envp[++i])
-		cnt++;
-	ret = (char **)malloc(sizeof(char *) * (cnt + 2));
-	if (!ret)
-		exit(1);
-	ret[cnt + 1] = NULL;
-	i = -1;
-	while (g_state.envp[++i])
-		ret[i] = ft_strdup(g_state.envp[i]);
-	ret[cnt] = ft_strdup(str);
-	ret[cnt + 1] = NULL;
-	free_split(g_state.envp);
-	return (ret);
+	new_node = create_env_node(str);
+	curr = *(g_state.env_head);
+	if (curr == NULL)
+	{
+		*(g_state.env_head) = new_node;
+		return ;
+	}
+	while (curr->next != NULL)
+		curr = curr->next;
+	curr->next = new_node;
 }
 
-void	modify_envp(char *str, int loc)
+static void	modify_envp(char *str, char *key)
 {
-	free(g_state.envp[loc]);
-	g_state.envp[loc] = ft_strdup(str);
+	t_env_node	*curr;
+	char		*split;
+
+	curr = *(g_state.env_head);
+	while (curr->next != NULL)
+	{
+		if (ft_strcmp(curr->key, key) == 0)
+		{
+			free(curr->value);
+			split = ft_split(str, '=');
+			curr->value = ft_strdup(split[1]);
+			free_split(split);
+			return ;
+		}
+		curr = curr->next;
+	}
 }
 
 void	builtin_export_one_cmd(t_cmd_node *node)
 {
-	int			idx;
+	t_env_node	*node_in_envp;
 
 	export_wihtout_arg(node);
 	node = node->next;
@@ -149,11 +161,11 @@ void	builtin_export_one_cmd(t_cmd_node *node)
 		}
 		else if ((has_equal_sign(node->cmd) == TRUE))
 		{
-			idx = is_in_envp(node->cmd);
-			if (idx != -1)
-				modify_envp(node->cmd, idx);
+			node_in_envp = is_in_envp(node->cmd);
+			if (node_in_envp != NULL)
+				modify_envp(node->cmd, node_in_envp->key);
 			else
-				g_state.envp = new_export(node->cmd);
+				new_export(node->cmd);
 		}
 		node = node->next;
 	}

@@ -1,6 +1,6 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	exec_one_cmd_without_pipe(t_cmd_node *node)
+static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 {
 	//리다이렉션 체크
 	//cmd_list 리다이렉션 리팩토링
@@ -28,7 +28,7 @@ void	exec_one_cmd_without_pipe(t_cmd_node *node)
 		execute_builtin();
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
-	if (execve(path, args, g_state.envp) == -1)
+	if (execve(path, args, NULL) == -1)
 		execve_error(strerror(errno), cmd_node);
 }
 

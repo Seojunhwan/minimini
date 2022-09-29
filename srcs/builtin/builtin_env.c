@@ -1,10 +1,13 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	builtin_env()
 {
-	int	i;
-
-	i = 0;
-	while (g_state.envp[i])
-		printf("%s\n", g_state.envp[i++]);
+	t_env_node	*node;
+	
+	node = *(g_state.env_head);
+	while (node)
+	{
+		printf("%s=%s\n",node->key, node->value);
+		node = node->next;
+	}
 }

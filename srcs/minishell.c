@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/28 05:04:55 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 19:34:59 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,18 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-
 	init_env(envp);
-	
 	// if (get_env_via_key("OLDPWD") == NULL)
 		// 환경변수 추가하기
 	while (1)
 	{
 		disable_echoctl();
 		cmd_list = init_cmd();
-		parse(cmd_list);
+		if (parse(cmd_list))
+		{
+			clear_cmd(cmd_list);
+			continue ;
+		}
 		enable_echoctl();
 		clear_cmd(cmd_list);
 	}

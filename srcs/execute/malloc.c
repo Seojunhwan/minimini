@@ -1,6 +1,6 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-int	malloc_fd(int size, int ***fd)
+static int	malloc_fd(int size, int ***fd)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ int	malloc_fd(int size, int ***fd)
 	return (TRUE);
 }
 
-int	malloc_pid(int size, pid_t **pid)
+static int	malloc_pid(int size, pid_t **pid)
 {
 	*pid = (pid_t *)malloc(sizeof(pid_t) * size);
 	if (*pid == NULL)
@@ -32,7 +32,7 @@ int	malloc_pid(int size, pid_t **pid)
 	return (TRUE);
 }
 
-int	malloc_status(int size, int **status)
+static int	malloc_status(int size, int **status)
 {
 	*status = (int *)malloc(sizeof(int) * size);
 	if (*status == NULL)

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static int	get_exit_code(t_cmd_node *curr_node)
 {

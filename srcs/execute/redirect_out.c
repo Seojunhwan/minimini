@@ -1,6 +1,6 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	do_redir_out(char *cmd)
+static void	do_redir_out(char *cmd)
 {
 	int			fd;
 	struct stat	s;
@@ -21,7 +21,7 @@ void	do_redir_out(char *cmd)
 	}
 }
 
-void	do_redir_append(char *cmd)
+static void	do_redir_append(char *cmd)
 {
 	int			fd;
 	struct stat	s;

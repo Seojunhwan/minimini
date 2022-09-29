@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 01:54:03 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/25 01:57:45 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 19:07:16 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_env_via_key(char *key)
 	if (*key == '\0')
 		return (NULL);
 	curr = *(g_state.env_head);
-	while (curr->next != NULL)
+	while (curr != NULL)
 	{
 		if (ft_strcmp(curr->key, key) == 0)
 			return (curr->value);

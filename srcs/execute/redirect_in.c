@@ -1,6 +1,6 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	do_redir_in(char *cmd)
+static void	do_redir_in(char *cmd)
 {
 	struct stat	file_info;
 

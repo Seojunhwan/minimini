@@ -1,6 +1,6 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size)
+static void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size)
 {
 	t_cmd_node *cmd_node;
 	char *path;
@@ -14,7 +14,7 @@ void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size)
 		execute_builtin();
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
-	if (execve(path, args, g_state.envp) == -1)
+	if (execve(path, args, NULL) == -1)
 		execve_error(strerror(errno), cmd_node);
 }
 

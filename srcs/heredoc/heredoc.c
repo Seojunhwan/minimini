@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/29 17:45:27 by junseo            #+#    #+#             */
+/*   Updated: 2022/09/29 19:42:11 by junseo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
 
 static int	write_dollar_heredoc(char *line, int start, int len, int fd)
 {
@@ -11,7 +23,7 @@ static int	write_dollar_heredoc(char *line, int start, int len, int fd)
 		write(fd, "\n", 1);
 		return (FALSE);
 	}
-	value = replace_dollar(name, start, line); //해당 $변수 envp에서 찾아서 반환
+	value = get_env_via_key(name);
 	if (value == NULL)
 	{
 		free(name);
@@ -37,8 +49,8 @@ static int	write_heredoc(int fd, char *line)
 {
 	int		idx;
 	int		temp;
-	char	*name;
-	char	*value;
+	// char	*name;
+	// char	*value;
 
 	idx = 0;
 	while (line[idx] != '\0')
