@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 01:54:03 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:07:16 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/30 02:56:55 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_env_via_key(char *key)
 
 	if (*key == '\0')
 		return (NULL);
-	curr = *(g_state.env_head);
+	curr = g_state.env_head;
 	while (curr->next != NULL)
 	{
 		if (ft_strcmp(curr->key, key) == 0)
@@ -65,24 +65,13 @@ char	*extract_env_value(char *env)
 	return (value);
 }
 
-t_env_node	*create_env_node(char *env)
+t_env_node	*create_env_node(char *key, char *value)
 {
 	t_env_node	*node;
 
-	node = (t_env_node *)malloc(sizeof(t_env_node));
-	if (env == NULL)
-	{
-		node->key = NULL;
-		node->next = NULL;
-		node ->value = NULL;
-		return (node);
-	}
-	node->key = extract_env_key(env);
-	if (node->key == NULL)
-		return (NULL);
-	node->value = extract_env_value(env);
-	if (node->value == NULL)
-		return (NULL);
+	node = (t_env_node *)ft_malloc(sizeof(t_env_node), 1);
+	node->key = key;
+	node->value = value;
 	node->next = NULL;
 	return (node);
 }

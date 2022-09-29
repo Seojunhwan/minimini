@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:27:57 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 18:43:40 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/30 02:57:15 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	cmd_lstadd_back(t_cmd_node **cmd_head, t_cmd_node *new_node)
 	else
 	{
 		last_node = *cmd_head;
-
 		while (last_node->next != NULL)
 			last_node = last_node->next;
 		last_node->next = new_node;

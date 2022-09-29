@@ -52,11 +52,11 @@ void	remove_node_in_envp(t_env_node *node)
 	
 	if (node == NULL)
 		return ;
-	if (node == *(g_state.env_head))
+	if (node == g_state.env_head)
 		prev = NULL;
 	else
 	{
-		prev = *(g_state.env_head);
+		prev = g_state.env_head;
 		while (prev->next != node)
 			prev = prev->next;
 	}

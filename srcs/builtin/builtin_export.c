@@ -6,7 +6,7 @@ static void	export_wihtout_arg(t_cmd_node *head)
 
 	if (head->next == NULL)
 	{
-		node = *(g_state.env_head);
+		node = g_state.env_head;
 		while (node)
 		{
 			printf("declare -x %s=%s\n",node->key, node->value);
@@ -92,7 +92,7 @@ t_env_node	*is_in_envp(char *str)
 	t_env_node	*node;
 	char		**split;
 
-	node = *(g_state.env_head);
+	node = g_state.env_head;
 	split = ft_split(str, '=');
 	while (node)
 	{
@@ -113,10 +113,10 @@ void	new_export(char *str)
 	t_env_node	*curr;
 
 	new_node = create_env_node(str);
-	curr = *(g_state.env_head);
+	curr = g_state.env_head;
 	if (curr == NULL)
 	{
-		*(g_state.env_head) = new_node;
+		g_state.env_head = new_node;
 		return ;
 	}
 	while (curr->next != NULL)
@@ -129,7 +129,7 @@ static void	modify_envp(char *str, char *key)
 	t_env_node	*curr;
 	char		**split;
 
-	curr = *(g_state.env_head);
+	curr = g_state.env_head;
 	while (curr->next != NULL)
 	{
 		if (ft_strcmp(curr->key, key) == 0)
