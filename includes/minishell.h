@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/25 02:36:10 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 17:05:42 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ enum	e_token_type
 	TO_HEREDOC,
 	TO_APPEND,
 	PIPE,
+	DOLLAR,
 	DQUOTE,
 	QUOTE,
-	DOLLAR
 };
 
 enum	e_cmd_type
@@ -50,7 +50,7 @@ enum	e_cmd_type
 
 typedef struct s_token_node		t_token_node;
 typedef struct s_cmd_node		t_cmd_node;
-typedef struct s_cmd_list	t_cmd_list;
+typedef struct s_cmd_list		t_cmd_list;
 typedef struct s_state			t_state;
 typedef struct s_env_node		t_env_node;
 t_state							g_state;
@@ -96,22 +96,26 @@ void		init_env(char **envp);
 char		*extract_env_key(char *env);
 char		*extract_env_value(char *env);
 t_env_node	*create_env_node(char *env);
+char		*get_env_via_key(char *key);
 
 // echoctl
-void	enable_echoctl(void);
-void	disable_echoctl(void);
+void		enable_echoctl(void);
+void		disable_echoctl(void);
 
 // parse
-void	parse(t_cmd_list **cmd_list);
+void		parse(t_cmd_list *cmd_list);
+
+void		tokenization(t_token_node **token_head, char *line);
+
 
 // error
-void	exit_with_err(char *msg, char *msg2, int error_no);
+void		exit_with_err(char *msg, char *msg2, int error_no);
 
 // custom utils
-void	*ft_malloc(size_t size, size_t n);
+void		*ft_malloc(size_t size, size_t n);
+char		*ft_strjoin_with_free(char *s1, char *s2);
 
 // initializer
-t_cmd_list *init_cmd();
-
+t_cmd_list	*init_cmd(void);
 
 #endif

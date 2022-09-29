@@ -32,7 +32,7 @@ void	exec_one_cmd_without_pipe(t_cmd_node *node)
 		execve_error(strerror(errno), cmd_node);
 }
 
-void	execute_without_pipe(t_cmd_line_list *list)
+void	execute_without_pipe(t_cmd_list *list)
 {
 	pid_t		pid;
 	int			status;

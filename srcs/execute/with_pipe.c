@@ -18,7 +18,7 @@ void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size)
 		execve_error(strerror(errno), cmd_node);
 }
 
-void	execute_with_pipe(t_cmd_line_list *list)
+void	execute_with_pipe(t_cmd_list *list)
 {
 	int		idx;
 	int		**fd;

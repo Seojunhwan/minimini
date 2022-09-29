@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	execute_cmd(t_cmd_line_list *cmd_line_list)
+void	execute_cmd(t_cmd_list *cmd_line_list)
 {
 	//cmd_line_list의 사이즈가 1인경우
 		//execute_without_pipe();
