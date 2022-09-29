@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 03:13:15 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 18:55:17 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 20:54:20 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	tokenization(t_token_node **token_head, char *line)
 	enum e_token_type	type;
 	int					i;
 	t_token_node		*new_node;
+
 	i = 0;
 	*token_head = NULL;
 	while (line[i] != '\0')

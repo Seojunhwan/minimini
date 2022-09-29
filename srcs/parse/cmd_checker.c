@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:36:53 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 20:04:51 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 20:55:36 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	command_validator(t_cmd_list *cmd_list)
 		while (curr != NULL)
 		{
 			if (!is_valid_redirect_arg(&curr))
-				return (0); 
+				return (0);
 			if (!flag && curr->type == COMMON && is_builtin(&curr))
 				tolower_str(curr->cmd);
 			if (!flag && (curr->type == COMMON || curr->type == BUILTIN))

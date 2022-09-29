@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:40:22 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:19:56 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 20:55:06 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	make_new_dollar_string(int *i, t_token_node **curr, char **new_str)
 	int		start;
 
 	start = ++(*i);
-	while ((*curr)->token[*i] != '\0' && (*curr)->token[*i] != '$' && !ft_isspace((*curr)->token[*i]))
+	while ((*curr)->token[*i] != '\0' && (*curr)->token[*i] != '$' && \
+		!ft_isspace((*curr)->token[*i]))
 		(*i)++;
 	temp_str = ft_substr((*curr)->token, start, *i - start);
 	if (ft_strcmp(temp_str, "") == 0)

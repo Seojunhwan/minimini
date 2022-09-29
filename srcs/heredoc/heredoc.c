@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:45:27 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:42:11 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/29 20:56:13 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ static int	write_heredoc(int fd, char *line)
 {
 	int		idx;
 	int		temp;
-	// char	*name;
-	// char	*value;
 
 	idx = 0;
 	while (line[idx] != '\0')
 	{
-		if (line[idx] == '$' && line[idx + 1] != '\0' && line[idx + 1] != ' ') //$이면서 변수가 존재하면
+		if (line[idx] == '$' && line[idx + 1] != '\0' && \
+		line[idx + 1] != ' ') //$이면서 변수가 존재하면
 		{
 			temp = ++idx;
-			while (line[idx] != '\0' && !(ft_isspace(line[idx])) && line[idx] != '$') //$$, 공백, null이 아니면 idx++하면서 $변수 길이 캐치
+			while (line[idx] != '\0' && !(ft_isspace(line[idx])) && \
+			line[idx] != '$') //$$, 공백, null이 아니면 idx++하면서 $변수 길이 캐치
 				idx++;
 			if (write_dollar_heredoc(line, temp, idx - temp, fd) == FALSE)
 				return (FALSE);
