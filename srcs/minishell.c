@@ -6,11 +6,38 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/25 02:35:20 by junseo           ###   ########.fr       */
+/*   Updated: 2022/09/28 05:04:55 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	clear_cmd(t_cmd_list *cmd_line_list)
+{
+	t_cmd_node	*curr;
+	t_cmd_node	*temp;
+	int			idx;
+
+	idx = 0;
+	while (idx < cmd_line_list->size)
+	{
+		if (cmd_line_list->cmd_heads == NULL)
+			break ;
+		curr = cmd_line_list->cmd_heads[idx];
+		while (curr != NULL)
+		{
+			temp = curr;
+			if (curr->cmd != 0)
+				free(curr->cmd);
+			curr = curr->next;
+			free(temp);
+		}
+		idx++;
+	}
+	free(cmd_line_list->cmd_heads);
+	free(cmd_line_list);
+	cmd_line_list = 0;
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -20,14 +47,16 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	init_env(envp);
+	
 	// if (get_env_via_key("OLDPWD") == NULL)
 		// 환경변수 추가하기
 	while (1)
 	{
 		disable_echoctl();
 		cmd_list = init_cmd();
-		parse(&cmd_list);
+		parse(cmd_list);
 		enable_echoctl();
+		clear_cmd(cmd_list);
 	}
 	return (0);
 }
