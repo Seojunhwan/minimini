@@ -25,7 +25,7 @@ void	home_dir(char *str)
 		exit(1);
 	}
 	tmp1 = ft_strjoin(tmp1, str);
-	export_str(tmp1);
+	new_export(tmp1);
 	free(tmp1);
 	tmp1 = 0;
 }
@@ -36,8 +36,8 @@ void	old_dir(void)
 	char	*str2;
 	char	*tmp;
 
-	str1 = get_value("OLDPWD");
-	str2 = get_value("PWD");
+	str1 = get_env_via_key("OLDPWD");
+	str2 = get_env_via_key("PWD");
 	if (chdir(str1) < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -45,11 +45,11 @@ void	old_dir(void)
 	}
 	tmp = ft_strdup("PWD=");
 	tmp = ft_strjoin(tmp, str1);
-	export_str(tmp);
+	new_export(tmp);
 	free(tmp);
 	tmp = ft_strdup("OLDPWD=");
 	tmp = ft_strjoin(tmp, str2);
-	export_str(tmp);
+	new_export(tmp);
 	free(tmp);
 	tmp = 0;
 }
@@ -59,7 +59,7 @@ static void	change_dir(char *str)
 	char	*tmp;
 	char	*ret;
 
-	tmp = get_value("PWD");
+	tmp = get_env_via_key("PWD");
 	if (chdir(str) < 0)
 	{
 		free(tmp);
@@ -70,11 +70,11 @@ static void	change_dir(char *str)
 	{
 		ret = ft_strdup("PWD=");
 		ret = ft_strjoin(ret, get_pwd());
-		export_str(ret);
+		new_export(ret);
 		free(ret);
 		ret = ft_strdup("OLDPWD=");
 		ret = ft_strjoin(ret, tmp);
-		export_str(ret);
+		new_export(ret);
 		free(ret);
 		ret = 0;
 	}
@@ -88,7 +88,7 @@ void	builtin_cd(t_cmd_node *head)
 
 	curr_node = head->next;
 	ret = 0;
-	str = get_value("HOME");
+	str = get_env_via_key("HOME");
 	if (curr_node == NULL)
 		home_dir(str);
 	else if (ft_strcmp(curr_node->cmd, "~") == 0)

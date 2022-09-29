@@ -29,7 +29,7 @@ char*	have_redirect_in(t_cmd_node *node)
 	}
 	if (redirect_in)
 		return (redirect_in->next->cmd);
-	return (redirect_in);
+	return (NULL);
 }
 
 void	redir_in(t_cmd_node *node)
@@ -51,6 +51,22 @@ void	redir_in(t_cmd_node *node)
 		}
 		dup2(fd, STDIN_FILENO);
 		close(fd);
+	}
+}
+
+static void	free_single_cmd_list(t_cmd_node *head)
+{
+	t_cmd_node	*curr;
+	t_cmd_node	*temp;
+
+	curr = head;
+	while (curr != NULL)
+	{
+		temp = curr;
+		if (curr->cmd != NULL)
+			free(curr->cmd);
+		curr = curr->next;
+		free(temp);
 	}
 }
 

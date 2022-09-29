@@ -27,6 +27,8 @@
 
 # define FALSE	0
 # define TRUE	1
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 enum	e_token_type
 {
@@ -171,7 +173,7 @@ void		init_cmd_size(t_cmd_list *cmd_list, t_token_node *token_head);
 
 
 //builtin
-void		exe_builtin(t_cmd_node	*node);
+void		execute_builtin(t_cmd_node	*node);
 void		execute_one_builtin(t_cmd_node	*node);
 //builtin |pwd
 void		builtin_pwd();
@@ -187,9 +189,9 @@ void		builtin_export_one_cmd(t_cmd_node *node);
 void		builtin_export(t_cmd_node *node);
 t_env_node	*is_in_envp(char *str);
 int			is_right_form(char *str);
-void		**new_export(char *str);
+void		new_export(char *str);
 //builtin |unset
-void		builtin_unset_single_cmd(t_cmd_node *head);
+void		builtin_unset_one_cmd(t_cmd_node *head);
 void		builtin_unset(t_cmd_node *head);
 //builtin |cd
 void		builtin_cd_one_cmd(t_cmd_node *head);
@@ -200,6 +202,7 @@ char		*get_pwd(void);
 
 //execute
 void		execute_cmd(t_cmd_list *cmd_line_list);
+void		execve_error(char *strerror, t_cmd_node *cmd_list);
 //execute |with pipe
 void		execute_with_pipe(t_cmd_list *list);
 //execute |without pipe
@@ -210,9 +213,10 @@ char*		have_redirect_in(t_cmd_node *node);
 t_cmd_node	*remove_redirection_in_cmd(t_cmd_node *node);
 //execute |redirect out
 void		redir_out(t_cmd_node *node);
-char*		have_redirect_out(t_cmd_node *node);
+t_cmd_node	*have_redirect_out(t_cmd_node *node);
 //execute |check cmd
 char		**cmd_change_to_array(t_cmd_node *node);
+int			add_cmd(t_cmd_node **cmd_head, t_cmd_node *new_node);
 char 		*is_valid_cmd(char *cmd);
 //execute |pipe, malloc
 void		close_fd(int ***fd, int size);
@@ -220,6 +224,7 @@ void		free_variables(int size, int ***fd, pid_t **pid, int **status);
 void		close_wait(int ***fd, pid_t **pid, int *status, int size);
 void		pipe_process(int size, int ***fd);
 void		malloc_variables(int size, int ***fd, pid_t **pid, int **status);
+t_cmd_node	*cmd_dup(t_cmd_node *src_node);
 //utils | free
 void		free_array(int **tmp, int idx);
 void		free_split(char **tmp);

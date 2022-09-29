@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		disable_echoctl();
 		cmd_list = init_cmd();
-		if (parse(cmd_list))
+		if (parse(cmd_list) == FALSE)
 		{
 			clear_cmd(cmd_list);
 			continue ;

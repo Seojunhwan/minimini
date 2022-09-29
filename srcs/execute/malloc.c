@@ -50,3 +50,21 @@ void	malloc_variables(int size, int ***fd, pid_t **pid, int **status)
 		exit(1);
 	}
 }
+
+t_cmd_node	*cmd_dup(t_cmd_node *src_node)
+{
+	t_cmd_node	*new_node;
+
+	new_node = (t_cmd_node *)malloc(sizeof(t_cmd_node));
+	if (new_node == NULL)
+		exit (1);
+	ft_memset(new_node, 0, sizeof(t_cmd_node));
+	new_node->cmd = ft_strdup(src_node->cmd);
+	if (new_node->cmd == NULL)
+	{
+		free(new_node);
+		return (NULL);
+	}
+	new_node->type = src_node->type;
+	return (new_node);
+}

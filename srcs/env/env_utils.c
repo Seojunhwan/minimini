@@ -19,7 +19,7 @@ char	*get_env_via_key(char *key)
 	if (*key == '\0')
 		return (NULL);
 	curr = *(g_state.env_head);
-	while (curr != NULL)
+	while (curr->next != NULL)
 	{
 		if (ft_strcmp(curr->key, key) == 0)
 			return (curr->value);

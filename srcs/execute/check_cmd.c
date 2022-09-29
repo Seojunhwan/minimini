@@ -103,4 +103,21 @@ char	**cmd_change_to_array(t_cmd_node *node)
 	}
 	cmd_arr[cnt] = NULL;
 	return (cmd_arr);
-}	
+}
+
+int	add_cmd(t_cmd_node **cmd_head, t_cmd_node *new_node)
+{
+	t_cmd_node	*last_node;
+
+	if (*cmd_head == 0)
+		*cmd_head = new_node;
+	else
+	{
+		last_node = *cmd_head;
+		while (last_node->next != NULL)
+			last_node = last_node->next;
+		last_node->next = new_node;
+		new_node->prev = last_node;
+	}
+	return (TRUE);
+}

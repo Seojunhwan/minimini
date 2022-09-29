@@ -135,7 +135,7 @@ int	command_validator(t_cmd_list *cmd_list)
 		while (curr != NULL)
 		{
 			if (!is_valid_redirect_arg(&curr))
-				return (0);
+				return (FALSE);
 			if (!flag && curr->type == COMMON && is_builtin(&curr))
 				tolower_str(curr->cmd);
 			if (!flag && (curr->type == COMMON || curr->type == BUILTIN))
@@ -144,5 +144,5 @@ int	command_validator(t_cmd_list *cmd_list)
 		}
 		i++;
 	}
-	return (1);
+	return (TRUE);
 }

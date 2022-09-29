@@ -19,7 +19,7 @@ void	execute_one_builtin(t_cmd_node	*node) //redirection 없는 경우
 		builtin_exit_one_cmd(node);
 }
 
-void	exe_builtin(t_cmd_node	*node)	//리다이렉션 있는경우
+void	execute_builtin(t_cmd_node	*node)	//리다이렉션 있는경우
 {
 	if (ft_strcmp(node->cmd, "pwd") == 0)
 		builtin_pwd();

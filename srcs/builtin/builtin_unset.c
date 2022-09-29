@@ -11,7 +11,6 @@ static int	unset_error(char *cmd)
 static int	builtin_unset_2(t_cmd_node *head, int flag)
 {
 	t_cmd_node	*curr_node;
-	int			loc;
 
 	curr_node = head->next;
 	while (curr_node != NULL)
@@ -70,7 +69,15 @@ void	remove_node_in_envp(t_env_node *node)
 	free(node);
 }
 
-void	builtin_unset_single_cmd(t_cmd_node *head)
+static void	unset_error_single(char *cmd)
+{
+	ft_putstr_fd("bash : unset : ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
+	g_state.exit_status = 1;
+}
+
+void	builtin_unset_one_cmd(t_cmd_node *head)
 {
 	t_cmd_node	*curr_node;
 	t_env_node	*node_in_envp;

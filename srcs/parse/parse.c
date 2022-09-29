@@ -61,16 +61,16 @@ int	parse(t_cmd_list *cmd_list)
 
 	ft_readline(&line);
 	if (is_empty_line(line))
-		return (0);
+		return (FALSE);
 	add_history(line);
 	tokenization(&token_head, line);
-	if (transformation(cmd_list, token_head, line) == 0)
+	if (transformation(cmd_list, token_head, line) == FALSE)
 	{
 		release_line(line);
 		release_token_list(token_head);
-		return (0);
+		return (FALSE);
 	}
 	release_line(line);
 	release_token_list(token_head);
-	return (1);
+	return (TRUE);
 }

@@ -5,7 +5,7 @@ static void	change_dir_single(char *str)
 	char	*tmp;
 	char	*ret;
 
-	tmp = get_value("PWD");
+	tmp = get_env_via_key("PWD");
 	if (chdir(str) < 0)
 	{
 		free(tmp);
@@ -16,11 +16,11 @@ static void	change_dir_single(char *str)
 	{
 		ret = ft_strdup("PWD=");
 		ret = ft_strjoin(ret, get_pwd());
-		export_str(ret);
+		new_export(ret);
 		free(ret);
 		ret = ft_strdup("OLDPWD=");
 		ret = ft_strjoin(ret, tmp);
-		export_str(ret);
+		new_export(ret);
 		free(ret);
 		ret = 0;
 	}
@@ -34,7 +34,7 @@ void	builtin_cd_one_cmd(t_cmd_node *head)
 
 	curr_node = head->next;
 	ret = 0;
-	str = get_value("HOME");
+	str = get_env_via_key("HOME");
 	if (curr_node == NULL)
 		home_dir(str);
 	else if (ft_strcmp(curr_node->cmd, "~") == 0)

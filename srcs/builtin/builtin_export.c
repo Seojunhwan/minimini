@@ -107,7 +107,7 @@ t_env_node	*is_in_envp(char *str)
 	return (NULL);
 }
 
-void	**new_export(char *str)
+void	new_export(char *str)
 {
 	t_env_node	*new_node;
 	t_env_node	*curr;
@@ -127,7 +127,7 @@ void	**new_export(char *str)
 static void	modify_envp(char *str, char *key)
 {
 	t_env_node	*curr;
-	char		*split;
+	char		**split;
 
 	curr = *(g_state.env_head);
 	while (curr->next != NULL)

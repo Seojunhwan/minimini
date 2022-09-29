@@ -35,7 +35,7 @@ static void	do_redir_append(char *cmd)
 	}
 }
 
-char*	have_redirect_out(t_cmd_node *node)
+t_cmd_node	*have_redirect_out(t_cmd_node *node)
 {
 	t_cmd_node *redirect_out;
 
@@ -55,8 +55,8 @@ char*	have_redirect_out(t_cmd_node *node)
 		node = node->next;
 	}
 	if (redirect_out)
-		return (redirect_out->next->cmd);
-	return (redirect_out);
+		return (redirect_out);
+	return (NULL);
 }
 
 void	redir_out(t_cmd_node *node)
@@ -64,7 +64,7 @@ void	redir_out(t_cmd_node *node)
 	t_cmd_node	*redir_out_node;
 	int			fd;
 
-	redir_out_node = has_redir_out(node);
+	redir_out_node = have_redirect_out(node);
 	if (redir_out_node != NULL)
 	{
 		if (redir_out_node->type == REDIROUT)

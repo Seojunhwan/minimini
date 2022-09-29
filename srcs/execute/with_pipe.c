@@ -4,14 +4,14 @@ static void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size)
 {
 	t_cmd_node *cmd_node;
 	char *path;
-	char *args;
+	char **args;
 
 	redir_in(node);
 	redir_out(node);
 	cmd_node = remove_redirection_in_cmd(node);
 	close_fd(fd, size - 1);
 	if (cmd_node->type == BUILTIN)
-		execute_builtin();
+		execute_builtin(cmd_node);
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
 	if (execve(path, args, NULL) == -1)
