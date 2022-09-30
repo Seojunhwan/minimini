@@ -63,7 +63,7 @@ void	builtin_export(t_cmd_node *node)
 		exit(1);
 }
 
-static void	modify_envp(char *str, char *key)
+int	modify_envp(char *str, char *key)
 {
 	t_env_node	*curr;
 	char		**split;
@@ -77,10 +77,11 @@ static void	modify_envp(char *str, char *key)
 			split = ft_split(str, '=');
 			curr->value = ft_strdup(split[1]);
 			free_split(split);
-			return ;
+			return (TRUE);
 		}
 		curr = curr->next;
 	}
+	return (FALSE);
 }
 
 void	builtin_export_one_cmd(t_cmd_node *node)

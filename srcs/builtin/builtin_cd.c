@@ -27,43 +27,44 @@ char	*get_pwd(void)
 
 void	home_dir(char *str)
 {
-	char	*tmp1;
+	char	*tmp;
 
-	tmp1 = ft_strdup("PWD=");
 	if (chdir(str) < 0)
 	{
-		free(str);
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		exit(1);
 	}
-	tmp1 = ft_strjoin(tmp1, str);
-	new_export(tmp1);
-	free(tmp1);
-	tmp1 = 0;
+	tmp = ft_strjoin("OLDPWD=", get_env_via_key("PWD"));
+	if (!modify_envp(tmp, "OLDPWD"))
+		new_export(tmp);
+	free(tmp);
+	tmp = ft_strjoin("PWD=", str);
+	if (!modify_envp(tmp, "PWD"))
+		new_export(tmp);
+	free(tmp);
 }
 
 void	old_dir(void)
 {
-	char	*str1;
-	char	*str2;
+	char	*old_pwd_value;
+	char	*pwd_value;
 	char	*tmp;
 
-	str1 = get_env_via_key("OLDPWD");
-	str2 = get_env_via_key("PWD");
-	if (chdir(str1) < 0)
+	old_pwd_value = get_env_via_key("OLDPWD");
+	pwd_value = get_env_via_key("PWD");
+	if (chdir(old_pwd_value) < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		exit(1);
 	}
-	tmp = ft_strdup("PWD=");
-	tmp = ft_strjoin(tmp, str1);
-	new_export(tmp);
+	tmp = ft_strjoin("PWD=", old_pwd_value);
+	if (!modify_envp(tmp, "PWD"))
+		new_export(tmp);
 	free(tmp);
-	tmp = ft_strdup("OLDPWD=");
-	tmp = ft_strjoin(tmp, str2);
-	new_export(tmp);
+	tmp = ft_strjoin("OLDPWD=", pwd_value);
+	if (!modify_envp(tmp, "OLDPWD"))
+		new_export(tmp);
 	free(tmp);
-	tmp = 0;
 }
 
 static void	change_dir(char *str)
@@ -80,13 +81,13 @@ static void	change_dir(char *str)
 	}
 	else
 	{
-		ret = ft_strdup("PWD=");
-		ret = ft_strjoin(ret, get_pwd());
-		new_export(ret);
+		ret = ft_strjoin("PWD=", get_pwd());
+		if (!modify_envp(ret, "PWD"))
+			new_export(ret);
 		free(ret);
-		ret = ft_strdup("OLDPWD=");
-		ret = ft_strjoin(ret, tmp);
-		new_export(ret);
+		ret = ft_strjoin("OLDPWD=", tmp);
+		if (!modify_envp(ret, "OLDPWD"))
+			new_export(ret);
 		free(ret);
 		ret = 0;
 	}

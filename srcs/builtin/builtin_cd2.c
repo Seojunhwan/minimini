@@ -26,13 +26,13 @@ static void	change_dir_single(char *str)
 	}
 	else
 	{
-		ret = ft_strdup("PWD=");
-		ret = ft_strjoin(ret, get_pwd());
-		new_export(ret);
+		ret = ft_strjoin("PWD=", get_pwd());
+		if (!modify_envp(ret, "OLDPWD"))
+			new_export(ret);
 		free(ret);
-		ret = ft_strdup("OLDPWD=");
-		ret = ft_strjoin(ret, tmp);
-		new_export(ret);
+		ret = ft_strjoin("OLDPWD=", tmp);
+		if (!modify_envp(ret, "PWD"))
+			new_export(ret);
 		free(ret);
 		ret = 0;
 	}

@@ -195,6 +195,7 @@ int					has_equal_sign(char *str);
 t_env_node			*is_in_envp(char *str);
 int					is_right_form(char *str);
 void				new_export(char *str);
+int					modify_envp(char *str, char *key);
 //builtin |unset
 void				builtin_unset_one_cmd(t_cmd_node *head);
 void				builtin_unset(t_cmd_node *head);
