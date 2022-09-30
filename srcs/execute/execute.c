@@ -1,11 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 17:22:05 by hyuncho           #+#    #+#             */
+/*   Updated: 2022/09/30 17:22:20 by hyuncho          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-void	execute_cmd(t_cmd_list *cmd_line_list, char** envp)
+void	execute_cmd(t_cmd_list *cmd_line_list, char **envp)
 {
-	//cmd_line_list의 사이즈가 1인경우
-		//execute_without_pipe();
-	//pipe가 있는경우
-		//execute_with_pipe();
 	if (cmd_line_list->size == 1)
 		execute_without_pipe(cmd_line_list, envp);
 	else
@@ -30,20 +38,19 @@ void	execve_error(char *strerror, t_cmd_node *cmd_list)
 	}
 }
 
-char	**set_envp()
+char	**set_envp(void)
 {
-	char **env;
-	int	i;
-	t_env_node *node;
+	char		**env;
+	int			i;
+	t_env_node	*node;
 
 	i = 0;
-	env = (char **)malloc(sizeof(char*));
+	env = (char **)malloc(sizeof(char *));
 	node = g_state.env_head;
 	while (node)
 	{
 		env[i++] = ft_strjoin(ft_strjoin(node->key, "="), node->value);
 		node = node->next;
 	}
-
-	return env;
+	return (env);
 }

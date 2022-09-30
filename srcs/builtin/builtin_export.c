@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
+/*   Updated: 2022/09/30 17:21:24 by hyuncho          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	export_wihtout_arg(t_cmd_node *head)
@@ -9,7 +21,7 @@ static void	export_wihtout_arg(t_cmd_node *head)
 		node = g_state.env_head;
 		while (node)
 		{
-			printf("declare -x %s=%s\n",node->key, node->value);
+			printf("declare -x %s=%s\n", node->key, node->value);
 			node = node->next;
 		}
 	}
@@ -29,36 +41,8 @@ static int	has_equal_sign(char *str)
 	return (FALSE);
 }
 
-int	is_right_form(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
-		return (FALSE);
-	if (has_equal_sign(str) == TRUE)
-	{
-		while (str[i] != '=')
-		{
-			if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-				return (FALSE);
-			i++;
-		}
-		return (TRUE);
-	}
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
-}
-
 void	builtin_export(t_cmd_node *node)
 {
-	// int			idx;
 	int			flag;
 
 	flag = FALSE;
@@ -73,62 +57,10 @@ void	builtin_export(t_cmd_node *node)
 			ft_putstr_fd(node->cmd, STDERR_FILENO);
 			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
 		}
-		// else if ((has_equal_sign(curr_node->cmd) == TRUE))
-		// {
-		// 	idx = is_in_envp(curr_node->cmd);
-		// 	if (idx != -1)
-		// 		modify_envp(curr_node->cmd, idx);
-		// 	else
-		// 		g_state.envp = new_export(curr_node->cmd);
-		// }
 		node = node->next;
 	}
 	if (flag == TRUE)
 		exit(1);
-}
-
-t_env_node	*is_in_envp(char *str)
-{
-	t_env_node	*node;
-	char		**split;
-
-	node = g_state.env_head;
-	split = ft_split(str, '=');
-	while (node)
-	{
-		if (ft_strncmp(node->key, split[0], ft_strlen(split[0])) == 0)
-		{
-			free_split(split);
-			return (node);
-		}
-		node = node->next;
-	}
-	free_split(split);
-	return (NULL);
-}
-
-void	new_export(char *str)
-{
-	t_env_node	*new_node;
-	t_env_node	*curr;
-	char		**split;
-
-	if (has_equal_sign(str))
-	{
-		split = ft_split(str, '=');
-		new_node = create_env_node(split[0], split[1]);
-	}
-	else
-		new_node = create_env_node(str, NULL);
-	curr = g_state.env_head;
-	if (curr == NULL)
-	{
-		g_state.env_head = new_node;
-		return ;
-	}
-	while (curr->next != NULL)
-		curr = curr->next;
-	curr->next = new_node;
 }
 
 static void	modify_envp(char *str, char *key)
@@ -137,7 +69,7 @@ static void	modify_envp(char *str, char *key)
 	char		**split;
 
 	curr = g_state.env_head;
-	while (curr->next != NULL)
+	while (curr != NULL)
 	{
 		if (ft_strcmp(curr->key, key) == 0)
 		{

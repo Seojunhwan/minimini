@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_out.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 17:22:11 by hyuncho           #+#    #+#             */
+/*   Updated: 2022/09/30 17:22:25 by hyuncho          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	do_redir_out(char *cmd)
@@ -37,7 +49,7 @@ static void	do_redir_append(char *cmd)
 
 t_cmd_node	*have_redirect_out(t_cmd_node *node)
 {
-	t_cmd_node *redirect_out;
+	t_cmd_node	*redirect_out;
 
 	redirect_out = NULL;
 	while (node != NULL)

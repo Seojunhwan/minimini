@@ -1,24 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_cmd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 17:22:03 by hyuncho           #+#    #+#             */
+/*   Updated: 2022/09/30 17:22:19 by hyuncho          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
-
-// static char	*get_path(char *key)
-// {
-// 	int		i;
-// 	char	*ret;
-
-// 	ret = NULL;
-// 	i = -1;
-// 	while (g_state.envp[++i])
-// 	{
-// 		if ((ft_strncmp(key, g_state.envp[i], ft_strlen(key)) == 0) \
-// 		&& g_state.envp[i][ft_strlen(key)] == '=')
-// 		{
-// 			ret = ft_substr(g_state.envp[i], key_len(g_state.envp[i]) + \
-// 			1, value_len(g_state.envp[i]));
-// 			break ;
-// 		}
-// 	}
-// 	return (ret);
-// }
 
 static void	path_error(char *str, char *cmd)
 {
@@ -59,7 +51,7 @@ static char	*is_valid_cmd_path(char *cmd)
 	return (NULL);
 }
 
-char *is_valid_cmd(char *cmd)
+char	*is_valid_cmd(char *cmd)
 {
 	struct stat	s;
 	int			i;

@@ -17,7 +17,7 @@ static int	write_dollar_heredoc(char *line, int start, int len, int fd)
 	char	*name;
 	char	*value;
 
-	name = ft_substr(line, start, len); //$변수 를 substr하기($이후부터 자름)
+	name = ft_substr(line, start, len);
 	if (name == NULL)
 	{
 		write(fd, "\n", 1);
@@ -54,11 +54,11 @@ static int	write_heredoc(int fd, char *line)
 	while (line[idx] != '\0')
 	{
 		if (line[idx] == '$' && line[idx + 1] != '\0' && \
-		line[idx + 1] != ' ') //$이면서 변수가 존재하면
+		line[idx + 1] != ' ')
 		{
 			temp = ++idx;
 			while (line[idx] != '\0' && !(ft_isspace(line[idx])) && \
-			line[idx] != '$') //$$, 공백, null이 아니면 idx++하면서 $변수 길이 캐치
+			line[idx] != '$')
 				idx++;
 			if (write_dollar_heredoc(line, temp, idx - temp, fd) == FALSE)
 				return (FALSE);
@@ -83,8 +83,8 @@ static int	heredoc_child(char *delimiter)
 	fd = open("heredoc_file", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	if (fd < 0)
 	{
-		parse_error(5); //printf("ERROR : Failed to open file\n");
-		finish_heredoc(&line, fd, 1); //exit 1
+		parse_error(5);
+		finish_heredoc(&line, fd, 1);
 	}
 	while (1)
 	{
@@ -98,7 +98,7 @@ static int	heredoc_child(char *delimiter)
 		free(line);
 	}
 	line = NULL;
-	finish_heredoc(&line, fd, 0); //exit 0
+	finish_heredoc(&line, fd, 0);
 }
 
 int	do_heredoc(t_cmd_node **curr_cmd)
@@ -116,13 +116,13 @@ int	do_heredoc(t_cmd_node **curr_cmd)
 		waitpid(pid, &status, 0);
 		ret = status / 256;
 		set_main_signal();
-		if (ret == 130 || ret == 1)     //130, 1일경우에는 어떤경우?
+		if (ret == 130 || ret == 1)     //hyun_TODO
 		{
 			g_state.exit_status = 1;
 			remove_temp_file();
 			return (FALSE);
 		}
-		(*curr_cmd)->prev->type = REDIRIN;      //HEREDOC->REDIRIN으로 전환하고 현재 cmd파일명으로 변경(heredoc_file)
+		(*curr_cmd)->prev->type = REDIRIN;
 		free((*curr_cmd)->cmd);
 		(*curr_cmd)->cmd = ft_strdup("heredoc_file");
 	}

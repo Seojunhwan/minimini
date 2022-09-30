@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_in.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 17:22:10 by hyuncho           #+#    #+#             */
+/*   Updated: 2022/09/30 17:22:23 by hyuncho          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	do_redir_in(char *cmd)
@@ -13,9 +25,9 @@ static void	do_redir_in(char *cmd)
 	}
 }
 
-char*	have_redirect_in(t_cmd_node *node)
+char	*have_redirect_in(t_cmd_node *node)
 {
-	t_cmd_node *redirect_in;
+	t_cmd_node	*redirect_in;
 
 	redirect_in = NULL;
 	while (node != NULL)
@@ -70,7 +82,7 @@ static void	free_single_cmd_list(t_cmd_node *head)
 	}
 }
 
-t_cmd_node *remove_redirection_in_cmd(t_cmd_node *node)
+t_cmd_node	*remove_redirection_in_cmd(t_cmd_node *node)
 {
 	t_cmd_node	*new_list_head;
 	t_cmd_node	*new_node;

@@ -1,12 +1,16 @@
-#include "../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 17:21:04 by hyuncho           #+#    #+#             */
+/*   Updated: 2022/09/30 17:21:10 by hyuncho          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static int	unset_error(char *cmd)
-{
-	ft_putstr_fd("bash : unset : ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
-	return (TRUE);
-}
+#include "../../includes/minishell.h"
 
 static int	builtin_unset_2(t_cmd_node *head, int flag)
 {
@@ -49,7 +53,7 @@ void	builtin_unset(t_cmd_node *head)
 void	remove_node_in_envp(t_env_node *node)
 {
 	t_env_node	*prev;
-	
+
 	if (node == NULL)
 		return ;
 	if (node == g_state.env_head)
@@ -67,14 +71,6 @@ void	remove_node_in_envp(t_env_node *node)
 	free(node->key);
 	free(node->value);
 	free(node);
-}
-
-static void	unset_error_single(char *cmd)
-{
-	ft_putstr_fd("bash : unset : ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
-	g_state.exit_status = 1;
 }
 
 void	builtin_unset_one_cmd(t_cmd_node *head)

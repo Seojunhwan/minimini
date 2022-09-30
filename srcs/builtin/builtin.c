@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 17:23:53 by hyuncho           #+#    #+#             */
+/*   Updated: 2022/09/30 17:23:54 by hyuncho          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-
-void	execute_one_builtin(t_cmd_node	*node) //redirection 없는 경우
+void	execute_one_builtin(t_cmd_node	*node)
 {
 	if (ft_strcmp(node->cmd, "pwd") == 0)
 		builtin_pwd();
@@ -19,7 +30,7 @@ void	execute_one_builtin(t_cmd_node	*node) //redirection 없는 경우
 		builtin_exit_one_cmd(node);
 }
 
-void	execute_builtin(t_cmd_node	*node)	//리다이렉션 있는경우
+void	execute_builtin(t_cmd_node	*node)
 {
 	if (ft_strcmp(node->cmd, "pwd") == 0)
 		builtin_pwd();

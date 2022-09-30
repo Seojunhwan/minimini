@@ -45,8 +45,10 @@ BUILTIN_FILES	=	builtin	\
 					builtin_env	\
 					builtin_exit	\
 					builtin_export	\
+					builtin_export_utils \
 					builtin_pwd	\
-					builtin_unset
+					builtin_unset	\
+					builtin_unset_error
 
 EXECUTE_FILES 	=	check_cmd	\
 					execute	\

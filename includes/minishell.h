@@ -197,6 +197,9 @@ void				new_export(char *str);
 //builtin |unset
 void				builtin_unset_one_cmd(t_cmd_node *head);
 void				builtin_unset(t_cmd_node *head);
+int					unset_error(char *cmd);
+void				unset_error_single(char *cmd);
+
 //builtin |cd
 void				builtin_cd_one_cmd(t_cmd_node *head);
 void				builtin_cd(t_cmd_node *head);
