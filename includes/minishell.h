@@ -191,6 +191,7 @@ void				builtin_exit(t_cmd_node *head);
 //builtin |export
 void				builtin_export_one_cmd(t_cmd_node *node);
 void				builtin_export(t_cmd_node *node);
+int					has_equal_sign(char *str);
 t_env_node			*is_in_envp(char *str);
 int					is_right_form(char *str);
 void				new_export(char *str);

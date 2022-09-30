@@ -27,7 +27,7 @@ static void	export_wihtout_arg(t_cmd_node *head)
 	}
 }
 
-static int	has_equal_sign(char *str)
+int	has_equal_sign(char *str)
 {
 	int	i;
 
