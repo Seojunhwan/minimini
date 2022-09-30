@@ -15,7 +15,6 @@
 char	*transform_dollar_token(char *str, int i, char *line)
 {
 	char		*value;
-	t_env_node	*temp;
 
 	if (i == 0 || line[i - 1] != '$')
 		return (ft_strdup("$"));

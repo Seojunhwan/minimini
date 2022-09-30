@@ -61,7 +61,7 @@ void	remove_node_in_envp(t_env_node *node)
 			prev = prev->next;
 	}
 	if (prev == NULL)
-		*g_state.env_head = node->next;
+		g_state.env_head = node->next;
 	else
 		prev->next = node->next;
 	free(node->key);

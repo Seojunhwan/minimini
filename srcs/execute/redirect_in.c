@@ -22,7 +22,7 @@ char*	have_redirect_in(t_cmd_node *node)
 	{
 		if (node->type == REDIRIN)
 		{
-			do_redir_in(node->cmd);
+			do_redir_in(node->next->cmd);
 			redirect_in = node;
 		}
 		node = node->next;

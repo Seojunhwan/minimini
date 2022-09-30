@@ -16,7 +16,8 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 DEBUG_FLAGS		=	-g -fsanitize=address
 
-INCLUDE 		=	-I./includes -I/Users/junseo/.brew/opt/readline/include
+#INCLUDE 		=	-I./includes -I/Users/junseo/.brew/opt/readline/include
+INCLUDE 		=	-I./includes -I/Users/hyuncho/.brew/opt/readline/include
 
 DIR_BASE		=	./srcs/
 DIR_PARSE		=	parse/
@@ -83,7 +84,8 @@ OBJS			=	$(SRCS:.c=.o)
 
 LIBFT_DIR		=	./libft/
 
-LIBRARY			=	-L/Users/junseo/.brew/opt/readline/lib -lreadline -L$(LIBFT_DIR) -lft
+#LIBRARY			=	-L/Users/junseo/.brew/opt/readline/lib -lreadline -L$(LIBFT_DIR) -lft
+LIBRARY			=	-L/Users/hyuncho/.brew/opt/readline/lib -lreadline -L$(LIBFT_DIR) -lft
 
 all		: $(NAME)
 

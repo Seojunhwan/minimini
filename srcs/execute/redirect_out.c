@@ -44,12 +44,12 @@ t_cmd_node	*have_redirect_out(t_cmd_node *node)
 	{
 		if (node->type == REDIROUT)
 		{
-			do_redir_out(node->cmd);
+			do_redir_out(node->next->cmd);
 			redirect_out = node;
 		}
 		else if (node->type == APPEND)
 		{
-			do_redir_append(node->cmd);
+			do_redir_append(node->next->cmd);
 			redirect_out = node;
 		}
 		node = node->next;

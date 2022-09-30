@@ -54,43 +54,50 @@ enum	e_cmd_type
 	BUILTIN,
 	OPTION
 };
+
+typedef struct s_token_node		t_token_node;
+typedef struct s_cmd_node		t_cmd_node;
+typedef struct s_cmd_list		t_cmd_list;
+typedef struct s_state			t_state;
+typedef struct s_env_node		t_env_node;
+
 t_state							g_state;
 
-typedef struct s_token_node
+struct s_token_node
 {
 	enum e_token_type	type;
 	char				*token;
 	t_token_node		*prev;
 	t_token_node		*next;
 	int					idx;
-}				t_token_node;
+};
 
-typedef struct s_cmd_node
+struct s_cmd_node
 {
 	enum e_cmd_type	type;
 	char			*cmd;
 	t_cmd_node		*prev;
 	t_cmd_node		*next;
-}				t_cmd_node;
+};
 
-typedef struct s_cmd_list
+struct s_cmd_list
 {
 	int			size;
 	t_cmd_node	**cmd_heads;
-}				t_cmd_list;
+};
 
-typedef struct s_env_node
+struct s_env_node
 {
 	char		*key;
 	char		*value;
 	t_env_node	*next;
-}				t_env_node;
+};
 
-typedef struct s_state
+struct s_state
 {
 	t_env_node		*env_head;
 	int				exit_status;
-}				t_state;
+};
 
 // env
 void				init_env(char **envp);

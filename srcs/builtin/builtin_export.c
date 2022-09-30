@@ -111,8 +111,15 @@ void	new_export(char *str)
 {
 	t_env_node	*new_node;
 	t_env_node	*curr;
+	char		**split;
 
-	new_node = create_env_node(str);
+	if (has_equal_sign(str))
+	{
+		split = ft_split(str, '=');
+		new_node = create_env_node(split[0], split[1]);
+	}
+	else
+		new_node = create_env_node(str, NULL);
 	curr = g_state.env_head;
 	if (curr == NULL)
 	{
