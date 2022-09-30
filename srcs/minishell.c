@@ -86,8 +86,9 @@ int	main(int argc, char **argv, char **envp)
 		}
 		enable_echoctl();
 		// test(cmd_list);
-		execute_cmd(cmd_list);
+		execute_cmd(cmd_list, envp);
 		clear_cmd(cmd_list);
+		remove_temp_file();
 	}
 	return (0);
 }

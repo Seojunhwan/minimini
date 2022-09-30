@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	exec_one_cmd_without_pipe(t_cmd_node *node)
+static void	exec_one_cmd_without_pipe(t_cmd_node *node, char** envp)
 {
 	//리다이렉션 체크
 	//cmd_list 리다이렉션 리팩토링
@@ -28,11 +28,11 @@ static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 		execute_builtin(cmd_node);
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
-	if (execve(path, args, NULL) == -1)
+	if (execve(path, args, envp) == -1)
 		execve_error(strerror(errno), cmd_node);
 }
 
-void	execute_without_pipe(t_cmd_list *list)
+void	execute_without_pipe(t_cmd_list *list, char **envp)
 {
 	pid_t		pid;
 	int			status;
@@ -47,7 +47,7 @@ void	execute_without_pipe(t_cmd_list *list)
 			exit(1);
 		if (pid == 0)
 		{
-			exec_one_cmd_without_pipe(list->cmd_heads[0]); //파이프 없이 명령어 실행
+			exec_one_cmd_without_pipe(list->cmd_heads[0], envp); //파이프 없이 명령어 실행
 			exit(1);
 		}
 		else

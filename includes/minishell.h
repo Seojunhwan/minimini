@@ -205,12 +205,13 @@ void				home_dir(char *str);
 char				*get_pwd(void);
 
 //execute
-void				execute_cmd(t_cmd_list *cmd_line_list);
+void				execute_cmd(t_cmd_list *cmd_line_list, char **envp);
 void				execve_error(char *strerror, t_cmd_node *cmd_list);
+char				**set_envp();
 //execute |with pipe
-void				execute_with_pipe(t_cmd_list *list);
+void				execute_with_pipe(t_cmd_list *list, char **envp);
 //execute |without pipe
-void				execute_without_pipe(t_cmd_list *list);
+void				execute_without_pipe(t_cmd_list *list, char **envp);
 //execute |redirect in
 void				redir_in(t_cmd_node *node);
 char*				have_redirect_in(t_cmd_node *node);

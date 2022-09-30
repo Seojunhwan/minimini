@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size)
+static void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size, char **envp)
 {
 	t_cmd_node *cmd_node;
 	char *path;
@@ -14,11 +14,11 @@ static void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, int size)
 		execute_builtin(cmd_node);
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
-	if (execve(path, args, NULL) == -1)
+	if (execve(path, args, envp) == -1)
 		execve_error(strerror(errno), cmd_node);
 }
 
-void	execute_with_pipe(t_cmd_list *list)
+void	execute_with_pipe(t_cmd_list *list, char **envp)
 {
 	int		idx;
 	int		**fd;
@@ -39,7 +39,7 @@ void	execute_with_pipe(t_cmd_list *list)
 				dup2(fd[idx - 1][0], STDIN_FILENO);
 			if (idx < list->size - 1)
 				dup2(fd[idx][1], STDOUT_FILENO);
-			exe_single_cmd_with_pipe(list->cmd_heads[idx], &fd, list->size);
+			exe_single_cmd_with_pipe(list->cmd_heads[idx], &fd, list->size, envp);
 		}
 	}
 	close_wait(&fd, &pid, status, list->size);
