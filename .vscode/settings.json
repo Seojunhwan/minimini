@@ -5,6 +5,7 @@
     "chrono": "c",
     "string.h": "c",
     "__config": "c",
-    "__node_handle": "c"
+    "__node_handle": "c",
+    "libft.h": "c"
   }
 }

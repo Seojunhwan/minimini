@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:45:27 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 20:56:13 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:25:06 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@ static int	write_dollar_heredoc(char *line, int start, int len, int fd)
 	if (name == NULL)
 	{
 		write(fd, "\n", 1);
-		return (FALSE);
+		return (false);
 	}
 	value = get_env_via_key(name);
 	if (value == NULL)
 	{
 		free(name);
 		write(fd, "\n", 1);
-		return (FALSE);
+		return (false);
 	}
 	ft_putstr_fd(value, fd);
 	free(name);
-	free(value);
-	return (TRUE);
+	return (true);
 }
 
 static void	finish_heredoc(char **line, int fd, int end_status)
@@ -60,8 +59,8 @@ static int	write_heredoc(int fd, char *line)
 			while (line[idx] != '\0' && !(ft_isspace(line[idx])) && \
 			line[idx] != '$')
 				idx++;
-			if (write_dollar_heredoc(line, temp, idx - temp, fd) == FALSE)
-				return (FALSE);
+			if (write_dollar_heredoc(line, temp, idx - temp, fd) == false)
+				return (false);
 		}
 		else
 		{
@@ -70,7 +69,7 @@ static int	write_heredoc(int fd, char *line)
 		}
 	}
 	write(fd, "\n", 1);
-	return (TRUE);
+	return (true);
 }
 
 static int	heredoc_child(char *delimiter)
@@ -78,7 +77,7 @@ static int	heredoc_child(char *delimiter)
 	int		fd;
 	char	*line;
 
-	set_heredoc_signal();
+	enable_heredoc_signal();
 	line = NULL;
 	fd = open("heredoc_file", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	if (fd < 0)
@@ -93,7 +92,7 @@ static int	heredoc_child(char *delimiter)
 			move_heredoc_curser(fd);
 		if (ft_strcmp(line, delimiter) == 0)
 			finish_heredoc(&line, fd, 0);
-		if (write_heredoc(fd, line) == FALSE)
+		if (write_heredoc(fd, line) == false)
 			finish_heredoc(&line, fd, 1);
 		free(line);
 	}
@@ -115,16 +114,16 @@ int	do_heredoc(t_cmd_node **curr_cmd)
 	{
 		waitpid(pid, &status, 0);
 		ret = status / 256;
-		set_main_signal();
+		enable_signal();
 		if (ret == 130 || ret == 1)     //hyun_TODO
 		{
 			g_state.exit_status = 1;
 			remove_temp_file();
-			return (FALSE);
+			return (false);
 		}
 		(*curr_cmd)->prev->type = REDIRIN;
 		free((*curr_cmd)->cmd);
 		(*curr_cmd)->cmd = ft_strdup("heredoc_file");
 	}
-	return (TRUE);
+	return (true);
 }

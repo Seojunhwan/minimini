@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   builtin_unset_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:21:04 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:21:10 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 16:42:33 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	unset_error(char *cmd)
 	ft_putstr_fd("bash : unset : ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
-	return (TRUE);
+	return (true);
 }
 
 void	unset_error_single(char *cmd)

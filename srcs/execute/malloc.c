@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:06 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:22:21 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 16:42:33 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	malloc_fd(int size, int ***fd)
 
 	*fd = (int **)malloc(sizeof(int *) * size);
 	if (*fd == NULL)
-		return (FALSE);
+		return (false);
 	ft_memset(*fd, 0, sizeof(*fd));
 	i = 0;
 	while (i < size)
@@ -27,36 +27,36 @@ static int	malloc_fd(int size, int ***fd)
 		if ((*fd)[i] == NULL)
 		{
 			free_array((*fd), i);
-			return (FALSE);
+			return (false);
 		}
 		ft_memset((*fd)[i], 0, sizeof((*fd)[i]));
 		i++;
 	}
-	return (TRUE);
+	return (true);
 }
 
 static int	malloc_pid(int size, pid_t **pid)
 {
 	*pid = (pid_t *)malloc(sizeof(pid_t) * size);
 	if (*pid == NULL)
-		return (FALSE);
+		return (false);
 	ft_memset(*pid, 0, sizeof(*pid));
-	return (TRUE);
+	return (true);
 }
 
 static int	malloc_status(int size, int **status)
 {
 	*status = (int *)malloc(sizeof(int) * size);
 	if (*status == NULL)
-		return (FALSE);
+		return (false);
 	ft_memset(*status, 0, sizeof(*status));
-	return (TRUE);
+	return (true);
 }
 
 void	malloc_variables(int size, int ***fd, pid_t **pid, int **status)
 {
-	if (malloc_fd(size - 1, fd) != TRUE || malloc_pid \
-	(size, pid) != TRUE || malloc_status(size, status) != TRUE)
+	if (malloc_fd(size - 1, fd) != true || malloc_pid \
+	(size, pid) != true || malloc_status(size, status) != true)
 	{
 		g_state.exit_status = 1;
 		exit(1);

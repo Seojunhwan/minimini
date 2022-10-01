@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:21:51 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 20:04:25 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 16:57:18 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	transformation(t_cmd_list *cmd_list, t_token_node *token_head, char *line)
 		convert_token_to_command(&(cmd_list->cmd_heads[i]), &curr_token, line);
 		i++;
 		if (i < cmd_list->size && curr_token == NULL)
-			parse_error(4);
+			return (parse_error(4));
 	}
 	return (command_validator(cmd_list));
 }

@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   with_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:13 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:22:25 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 18:45:11 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, \
-			int size, char **envp)
+static void	exe_one_cmd_with_pipe(t_cmd_node *node, int ***fd, \
+			int size)
 {
 	t_cmd_node	*cmd_node;
 	char		*path;
 	char		**args;
+	char		**envp_for_execve;
 
 	redir_in(node);
 	redir_out(node);
@@ -27,11 +28,16 @@ static void	exe_single_cmd_with_pipe(t_cmd_node *node, int ***fd, \
 		execute_builtin(cmd_node);
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
-	if (execve(path, args, envp) == -1)
+	envp_for_execve = set_envp();
+	if (execve(path, args, envp_for_execve) == -1)
+	{
+		//free_split(envp_for_execve);
 		execve_error(strerror(errno), cmd_node);
+	}
+	//free_split(envp_for_execve);
 }
 
-void	execute_with_pipe(t_cmd_list *list, char **envp)
+void	execute_with_pipe(t_cmd_list *list)
 {
 	int		idx;
 	int		**fd;
@@ -52,8 +58,8 @@ void	execute_with_pipe(t_cmd_list *list, char **envp)
 				dup2(fd[idx - 1][0], STDIN_FILENO);
 			if (idx < list->size - 1)
 				dup2(fd[idx][1], STDOUT_FILENO);
-			exe_single_cmd_with_pipe(list->cmd_heads[idx], &fd, \
-										list->size, envp);
+			exe_one_cmd_with_pipe(list->cmd_heads[idx], &fd, \
+										list->size);
 		}
 	}
 	close_wait(&fd, &pid, status, list->size);

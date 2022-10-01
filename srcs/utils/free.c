@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:53:51 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 20:53:55 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 19:04:25 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,14 @@ void	free_split(char **tmp)
 	cnt = 0;
 	while (tmp[++i])
 		cnt++;
+	//printf("free_size: %d\n", cnt);
 	i = -1;
 	while (++i < cnt)
+	{
+		//if (tmp[i] != NULL)
 		free(tmp[i]);
+	}
+	//if (tmp != NULL)
 	free(tmp);
 	tmp = NULL;
 }

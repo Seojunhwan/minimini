@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   without_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:14 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:22:18 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 19:04:31 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	exec_one_cmd_without_pipe(t_cmd_node *node, char **envp)
+static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 {
 	t_cmd_node	*cmd_node;
 	char		*path;
 	char		**args;
+	char		**envp_for_execve;
+
 
 	redir_in(node);
 	redir_out(node);
@@ -25,11 +27,22 @@ static void	exec_one_cmd_without_pipe(t_cmd_node *node, char **envp)
 		execute_builtin(cmd_node);
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
-	if (execve(path, args, envp) == -1)
+	envp_for_execve = set_envp();
+
+	if (execve(path, args, envp_for_execve) == -1)
+	{
+		// int i = 0;
+		// while (envp_for_execve[i])
+		// {
+		// 	printf("%s\n", envp_for_execve[i++]);
+		// }
+		free_split(envp_for_execve);
 		execve_error(strerror(errno), cmd_node);
+	}
+	free_split(envp_for_execve);
 }
 
-void	execute_without_pipe(t_cmd_list *list, char **envp)
+void	execute_without_pipe(t_cmd_list *list)
 {
 	pid_t		pid;
 	int			status;
@@ -45,7 +58,7 @@ void	execute_without_pipe(t_cmd_list *list, char **envp)
 			exit(1);
 		if (pid == 0)
 		{
-			exec_one_cmd_without_pipe(list->cmd_heads[0], envp);
+			exec_one_cmd_without_pipe(list->cmd_heads[0]);
 			exit(1);
 		}
 		else

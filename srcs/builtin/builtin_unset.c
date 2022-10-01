@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:21:04 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:21:10 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 16:42:33 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	builtin_unset_2(t_cmd_node *head, int flag)
 	curr_node = head->next;
 	while (curr_node != NULL)
 	{
-		if (is_right_form(curr_node->cmd) == FALSE)
+		if (is_right_form(curr_node->cmd) == false)
 			flag = unset_error(curr_node->cmd);
 		curr_node = curr_node->next;
 	}
@@ -31,22 +31,22 @@ static int	is_valid_env(char *str)
 	int	i;
 
 	i = -1;
-	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
-		return (FALSE);
+	if (ft_isalpha(str[0]) == false && str[0] != '_')
+		return (false);
 	while (str[++i])
 	{
-		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-			return (FALSE);
+		if (ft_isalnum(str[i]) == false && str[i] != '_')
+			return (false);
 	}
-	return (TRUE);
+	return (true);
 }
 
 void	builtin_unset(t_cmd_node *head)
 {
 	int			flag;
 
-	flag = builtin_unset_2(head, FALSE);
-	if (flag == TRUE)
+	flag = builtin_unset_2(head, false);
+	if (flag == true)
 		exit(1);
 }
 
@@ -81,13 +81,13 @@ void	builtin_unset_one_cmd(t_cmd_node *head)
 	curr_node = head->next;
 	while (curr_node != NULL)
 	{
-		if (is_valid_env(curr_node->cmd) == TRUE)
+		if (is_valid_env(curr_node->cmd) == true)
 		{
 			node_in_envp = is_in_envp(curr_node->cmd);
 			if (node_in_envp != NULL)
 				remove_node_in_envp(node_in_envp);
 		}
-		else if (is_right_form(curr_node->cmd) == FALSE)
+		else if (is_right_form(curr_node->cmd) == false)
 			unset_error_single(curr_node->cmd);
 		curr_node = curr_node->next;
 	}

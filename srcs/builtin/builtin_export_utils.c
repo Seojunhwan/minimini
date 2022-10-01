@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:21:24 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 16:42:33 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,24 @@ int	is_right_form(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
-		return (FALSE);
-	if (has_equal_sign(str) == TRUE)
+	if (ft_isalpha(str[0]) == false && str[0] != '_')
+		return (false);
+	if (has_equal_sign(str) == true)
 	{
 		while (str[i] != '=')
 		{
-			if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-				return (FALSE);
+			if (ft_isalnum(str[i]) == false && str[i] != '_')
+				return (false);
 			i++;
 		}
-		return (TRUE);
+		return (true);
 	}
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
-			return (FALSE);
+		if (ft_isalnum(str[i]) == false && str[i] != '_')
+			return (false);
 		i++;
 	}
-	return (TRUE);
+	return (true);
 }

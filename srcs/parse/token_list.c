@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:50:39 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 20:54:52 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:19:51 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ t_token_node	*create_token_node(char	*line, int *i, \
 	else
 	{
 		token->token = extract_special_token_from_line(line, i, type);
+		if (!token->token)
+		{
+			free(token);
+			return (false);
+		}
 		(*i)++;
 	}
 	return (token);

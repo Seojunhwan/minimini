@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:43:20 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:49:10 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:25:06 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	sig_heredoc_handler(int sig)
 	exit(130);
 }
 
-void	set_heredoc_signal(void)
+void	enable_heredoc_signal(void)
 {
 	signal(SIGINT, sig_heredoc_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	set_main_signal(void)
+void	enable_signal(void)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 02:26:09 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 20:52:27 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:32:12 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	is_empty_line(char *line)
 	while (*line != '\0')
 	{
 		if (!ft_isspace(*line))
-			return (0);
+			return (false);
 		line++;
 	}
 	return (1);
@@ -61,16 +61,21 @@ int	parse(t_cmd_list *cmd_list)
 
 	ft_readline(&line);
 	if (is_empty_line(line))
-		return (FALSE);
+		return (false);
 	add_history(line);
-	tokenization(&token_head, line);
-	if (transformation(cmd_list, token_head, line) == FALSE)
+	if (tokenization(&token_head, line) == false)
 	{
 		release_line(line);
 		release_token_list(token_head);
-		return (FALSE);
+		return (false);
+	}
+	if (transformation(cmd_list, token_head, line) == false)
+	{
+		release_line(line);
+		release_token_list(token_head);
+		return (false);
 	}
 	release_line(line);
 	release_token_list(token_head);
-	return (TRUE);
+	return (true);
 }

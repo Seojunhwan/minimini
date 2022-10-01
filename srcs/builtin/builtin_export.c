@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:21:24 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 16:42:33 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,31 @@ int	has_equal_sign(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-			return (TRUE);
+			return (true);
 		i++;
 	}
-	return (FALSE);
+	return (false);
 }
 
 void	builtin_export(t_cmd_node *node)
 {
 	int			flag;
 
-	flag = FALSE;
+	flag = false;
 	export_wihtout_arg(node);
 	node = node->next;
 	while (node != NULL)
 	{
-		if (is_right_form(node->cmd) == FALSE)
+		if (is_right_form(node->cmd) == false)
 		{
-			flag = TRUE;
+			flag = true;
 			ft_putstr_fd("bash : export : ", STDERR_FILENO);
 			ft_putstr_fd(node->cmd, STDERR_FILENO);
 			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
 		}
 		node = node->next;
 	}
-	if (flag == TRUE)
+	if (flag == true)
 		exit(1);
 }
 
@@ -77,11 +77,11 @@ int	modify_envp(char *str, char *key)
 			split = ft_split(str, '=');
 			curr->value = ft_strdup(split[1]);
 			free_split(split);
-			return (TRUE);
+			return (true);
 		}
 		curr = curr->next;
 	}
-	return (FALSE);
+	return (false);
 }
 
 void	builtin_export_one_cmd(t_cmd_node *node)
@@ -92,14 +92,14 @@ void	builtin_export_one_cmd(t_cmd_node *node)
 	node = node->next;
 	while (node != NULL)
 	{
-		if (is_right_form(node->cmd) == FALSE)
+		if (is_right_form(node->cmd) == false)
 		{
 			ft_putstr_fd("bash : export : ", STDERR_FILENO);
 			ft_putstr_fd(node->cmd, STDERR_FILENO);
 			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
 			g_state.exit_status = 1;
 		}
-		else if ((has_equal_sign(node->cmd) == TRUE))
+		else if ((has_equal_sign(node->cmd) == true))
 		{
 			node_in_envp = is_in_envp(node->cmd);
 			if (node_in_envp != NULL)

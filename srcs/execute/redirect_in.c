@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:10 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:22:23 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 16:42:11 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_cmd_node	*remove_redirection_in_cmd(t_cmd_node *node)
 			|| node->type == OPTION)
 		{
 			new_node = cmd_dup(node);
-			if (new_node == NULL || add_cmd(&new_list_head, new_node) == FALSE)
+			if (new_node == NULL || add_cmd(&new_list_head, new_node) == false)
 			{
 				free_single_cmd_list(new_list_head);
 				return (NULL);

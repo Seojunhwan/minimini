@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:37:08 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:19:19 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 16:46:02 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ int	need_join(t_token_node *curr_token, char *line, int option)
 	if (option == 1)
 	{
 		if (c != '\0' && !(c == ' ' || (c >= 9 && c <= 13)))
-			return (1);
-		return (0);
+			return (true);
+		return (false);
 	}
 	else if (option == 2)
 	{
 		if (c != '\0' && (c == '\'' || c == '"' || \
 			!(c == ' ' || (c >= 9 && c <= 13))))
-			return (1);
-		return (0);
+			return (true);
+		return (false);
 	}
 	else
 	{
 		if (c != '\0' && (c == '\'' || c == '"'))
-			return (1);
-		return (0);
+			return (true);
+		return (false);
 	}
 }
 

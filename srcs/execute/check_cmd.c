@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:03 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:22:19 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 17:26:46 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ static char	*is_valid_cmd_path(char *cmd)
 	char		*str2;
 	struct stat	s;
 
-	str = get_env_via_key("PATH");
+	str = ft_strdup(get_env_via_key("PATH"));
 	path_error(str, cmd);
 	split_path = ft_split(str, ':');
 	free(str);
 	i = -1;
 	while (split_path[++i])
 	{
-		str = ft_strjoin(ft_strdup("/"), ft_strdup(cmd));
-		str2 = ft_strjoin(ft_strdup(split_path[i]), str);
+		str = ft_strjoin_with_free(ft_strdup("/"), ft_strdup(cmd));
+		str2 = ft_strjoin_with_free(ft_strdup(split_path[i]), str);
 		if (stat(str2, &s) == 0)
 		{
 			free_split(split_path);
@@ -111,5 +111,5 @@ int	add_cmd(t_cmd_node **cmd_head, t_cmd_node *new_node)
 		last_node->next = new_node;
 		new_node->prev = last_node;
 	}
-	return (TRUE);
+	return (true);
 }

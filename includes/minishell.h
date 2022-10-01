@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/30 04:18:24 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:25:06 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 # include "../libft/libft.h"
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <stdbool.h>
 
-# define FALSE	0
-# define TRUE	1
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
@@ -121,7 +120,7 @@ void				token_lstadd_back(t_token_node **token_head, \
 void				cmd_lstadd_back(t_cmd_node **cmd_head, t_cmd_node *new_node);
 
 // * parse | line -> token
-void				tokenization(t_token_node **token_head, char *line);
+int					tokenization(t_token_node **token_head, char *line);
 
 // * parse | token -> cmd
 int					transformation(t_cmd_list *cmd_list, \
@@ -156,8 +155,8 @@ char				*transform_dollar_token(char *str, int i, char *line);
 int					command_validator(t_cmd_list *cmd_list);
 
 // * signal
-void				set_heredoc_signal(void);
-void				set_main_signal(void);
+void				enable_heredoc_signal(void);
+void				enable_signal(void);
 
 
 int					do_heredoc(t_cmd_node **curr_cmd);
@@ -210,13 +209,13 @@ void				home_dir(char *str);
 char				*get_pwd(void);
 
 //execute
-void				execute_cmd(t_cmd_list *cmd_line_list, char **envp);
+void				execute_cmd(t_cmd_list *cmd_line_list);
 void				execve_error(char *strerror, t_cmd_node *cmd_list);
 char				**set_envp();
 //execute |with pipe
-void				execute_with_pipe(t_cmd_list *list, char **envp);
+void				execute_with_pipe(t_cmd_list *list);
 //execute |without pipe
-void				execute_without_pipe(t_cmd_list *list, char **envp);
+void				execute_without_pipe(t_cmd_list *list);
 //execute |redirect in
 void				redir_in(t_cmd_node *node);
 char*				have_redirect_in(t_cmd_node *node);

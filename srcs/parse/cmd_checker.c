@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:36:53 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/30 04:20:11 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 22:49:48 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static int	is_common_cmd(t_cmd_node *cmd)
 	enum e_cmd_type	type;
 
 	if (cmd == NULL)
-		return (0);
+		return (false);
 	type = cmd->type;
 	if (type == REDIRIN || type == REDIROUT \
 		|| type == HEREDOC || type == APPEND)
-		return (0);
+		return (false);
 	return (1);
 }
 
@@ -30,17 +30,27 @@ static int	is_echo_option(t_cmd_node *node)
 	int	i;
 
 	i = 0;
-	if (node != NULL && node->cmd[i++] == '-')
+	if (node != NULL && node->cmd[i++] == '-') //ft_strcmp(node->cmd, "-n") == 0) // node->cmd[i++] == '-')
 	{
-		while (node->cmd[i] != '\0')
+		while (node->cmd[i] == 'n')
 		{
-			if (node->cmd[i] != 'n')
-				return (0);
 			i++;
 		}
-		return (1);
+		if (node->cmd[i] == '\0')
+			return (true);
+		else
+			return (false);
+		// while (node->cmd[i] != '\0')
+		// {
+		// 	if (node->cmd[i] != 'n')
+		// 		return (false);
+		// 	i++;
+		// }
+		// if (node->cmd[--i] != 'n')
+		// 		return (false);
+		//return (1);
 	}
-	return (0);
+	return (false);
 }
 
 void	tolower_str(char *str)
@@ -65,7 +75,7 @@ char	*get_lower_str(char *str)
 		return (ft_strdup(""));
 	ret = ft_strdup(str);
 	if (ret == 0)
-		return (0);
+		return (false);
 	tolower_str(ret);
 	return (ret);
 }
@@ -80,7 +90,7 @@ static int	is_builtin(t_cmd_node **curr)
 	if (!ft_strcmp(temp, "echo"))
 	{
 		(*curr)->type = BUILTIN;
-		if (is_echo_option((*curr)->next))
+		while (is_echo_option((*curr)->next))
 		{
 			*curr = (*curr)->next;
 			(*curr)->type = OPTION;
@@ -116,7 +126,7 @@ static int	is_valid_redirect_arg(t_cmd_node **curr_cmd)
 	if (type == HEREDOC)
 	{
 		if (do_heredoc(curr_cmd))
-			return (0);
+			return (false);
 	}
 	return (1);
 }
@@ -135,7 +145,7 @@ int	command_validator(t_cmd_list *cmd_list)
 		while (curr != NULL)
 		{
 			if (!is_valid_redirect_arg(&curr))
-				return (FALSE);
+				return (false);
 			if (!flag && curr->type == COMMON && is_builtin(&curr))
 				tolower_str(curr->cmd);
 			if (!flag && (curr->type == COMMON || curr->type == BUILTIN))
@@ -144,5 +154,5 @@ int	command_validator(t_cmd_list *cmd_list)
 		}
 		i++;
 	}
-	return (TRUE);
+	return (true);
 }

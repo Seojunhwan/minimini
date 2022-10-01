@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:47 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:21:14 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/01 17:43:04 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ char	*get_pwd(void)
 void	home_dir(char *str)
 {
 	char	*tmp;
+	char	*pwd_value;
 
 	if (chdir(str) < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		exit(1);
 	}
-	tmp = ft_strjoin("OLDPWD=", get_env_via_key("PWD"));
+	pwd_value = get_env_via_key("PWD");
+	tmp = ft_strjoin("OLDPWD=", pwd_value);
 	if (!modify_envp(tmp, "OLDPWD"))
 		new_export(tmp);
 	free(tmp);
@@ -50,18 +52,20 @@ void	old_dir(void)
 	char	*pwd_value;
 	char	*tmp;
 
-	old_pwd_value = get_env_via_key("OLDPWD");
-	pwd_value = get_env_via_key("PWD");
+	old_pwd_value = ft_strdup(get_env_via_key("OLDPWD"));
+	pwd_value = ft_strdup(get_env_via_key("PWD"));
 	if (chdir(old_pwd_value) < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		exit(1);
 	}
 	tmp = ft_strjoin("PWD=", old_pwd_value);
+	free(old_pwd_value);
 	if (!modify_envp(tmp, "PWD"))
 		new_export(tmp);
 	free(tmp);
 	tmp = ft_strjoin("OLDPWD=", pwd_value);
+	free(pwd_value);
 	if (!modify_envp(tmp, "OLDPWD"))
 		new_export(tmp);
 	free(tmp);
@@ -72,7 +76,7 @@ static void	change_dir(char *str)
 	char	*tmp;
 	char	*ret;
 
-	tmp = get_env_via_key("PWD");
+	tmp = ft_strdup(get_env_via_key("PWD"));
 	if (chdir(str) < 0)
 	{
 		free(tmp);
@@ -86,10 +90,10 @@ static void	change_dir(char *str)
 			new_export(ret);
 		free(ret);
 		ret = ft_strjoin("OLDPWD=", tmp);
+		free(tmp);
 		if (!modify_envp(ret, "OLDPWD"))
 			new_export(ret);
 		free(ret);
-		ret = 0;
 	}
 }
 

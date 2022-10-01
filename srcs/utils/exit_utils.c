@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 02:09:40 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:45:36 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/01 16:42:11 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int	parse_error(int option)
 	{
 		printf("ERROR : Failed to open file\n");
 	}
-	return (FALSE);
+	return (false);
 }
