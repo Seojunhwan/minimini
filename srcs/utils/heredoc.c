@@ -6,19 +6,11 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:35:51 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:41:38 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 21:53:31 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	remove_temp_file(void)
-{
-	struct stat	s;
-
-	if (stat("heredoc_file", &s) == 0)
-		unlink("heredoc_file");
-}
 
 void	move_heredoc_curser(int fd)
 {
