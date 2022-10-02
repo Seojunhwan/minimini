@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:03 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/01 17:26:46 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*is_valid_cmd_path(char *cmd)
 	char		*str2;
 	struct stat	s;
 
-	str = ft_strdup(get_env_via_key("PATH"));
+	str = ft_strdup(get_env_value_via_key("PATH"));
 	path_error(str, cmd);
 	split_path = ft_split(str, ':');
 	free(str);

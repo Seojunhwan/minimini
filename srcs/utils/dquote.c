@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:25:31 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/29 19:03:18 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	dquote_dollar(char **new_str, char *key)
 		*new_str = ft_strjoin_with_free(*new_str, ft_itoa(g_state.exit_status));
 		return ;
 	}
-	value = ft_strdup(get_env_via_key(key));
+	value = ft_strdup(get_env_value_via_key(key));
 	if (value == NULL)
 		return ;
 	*new_str = ft_strjoin_with_free(*new_str, value);

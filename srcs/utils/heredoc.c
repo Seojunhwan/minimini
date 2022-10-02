@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:35:51 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 00:23:38 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	write_dollar_heredoc(char *line, int start, int len, int fd)
 		write(fd, "\n", 1);
 		return (false);
 	}
-	value = get_env_via_key(name);
+	value = get_env_value_via_key(name);
 	if (value == NULL)
 	{
 		free(name);

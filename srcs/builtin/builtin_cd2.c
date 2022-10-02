@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:50 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/01 20:33:48 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	home_dir_single(char *str)
 		g_state.exit_status = 1;
 		return ;
 	}
-	pwd_value = get_env_via_key("PWD");
+	pwd_value = get_env_value_via_key("PWD");
 	tmp = ft_strjoin("OLDPWD=", pwd_value);
 	if (!modify_envp(tmp, "OLDPWD"))
 		new_export(tmp);
@@ -40,8 +40,8 @@ static void	old_dir_single(void)
 	char	*pwd_value;
 	char	*tmp;
 
-	old_pwd_value = ft_strdup(get_env_via_key("OLDPWD"));
-	pwd_value = ft_strdup(get_env_via_key("PWD"));
+	old_pwd_value = ft_strdup(get_env_value_via_key("OLDPWD"));
+	pwd_value = ft_strdup(get_env_value_via_key("PWD"));
 	if (chdir(old_pwd_value) < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -65,7 +65,7 @@ static void	change_dir_single(char *str)
 	char	*tmp;
 	char	*ret;	
 
-	tmp = ft_strdup(get_env_via_key("PWD"));
+	tmp = ft_strdup(get_env_value_via_key("PWD"));
 	if (chdir(str) < 0)
 	{
 		free(tmp);
@@ -92,7 +92,7 @@ void	builtin_cd_one_cmd(t_cmd_node *head)
 	char		*str;
 
 	curr_node = head->next;
-	str = get_env_via_key("HOME");
+	str = get_env_value_via_key("HOME");
 	if (curr_node == NULL)
 		home_dir_single(str);
 	else if (ft_strcmp(curr_node->cmd, "~") == 0)

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/10/03 02:54:40 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	set_old_pwd(void)
 {
 	char		*old_pwd_value;
 
-	old_pwd_value = get_env_via_key("OLDPWD");
+	old_pwd_value = get_env_value_via_key("OLDPWD");
 	if (old_pwd_value == NULL)
 		new_export(ft_strjoin_with_free(ft_strdup("OLDPWD="), get_pwd()));
 }

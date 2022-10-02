@@ -6,6 +6,7 @@
     "string.h": "c",
     "__config": "c",
     "__node_handle": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "__locale": "c"
   }
 }

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:47 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/03 03:00:42 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	home_dir(char *str)
 
 	if (chdir(str) < 0)
 		exit_with_err("chdir()", strerror(errno), 1);
-	pwd_value = get_env_via_key("PWD");
+	pwd_value = get_env_value_via_key("PWD");
 	tmp = ft_strjoin("OLDPWD=", pwd_value);
 	if (!modify_envp(tmp, "OLDPWD"))
 		new_export(tmp);
@@ -46,8 +46,8 @@ void	old_dir(void)
 	char	*pwd_value;
 	char	*tmp;
 
-	old_pwd_value = ft_strdup(get_env_via_key("OLDPWD"));
-	pwd_value = ft_strdup(get_env_via_key("PWD"));
+	old_pwd_value = ft_strdup(get_env_value_via_key("OLDPWD"));
+	pwd_value = ft_strdup(get_env_value_via_key("PWD"));
 	if (chdir(old_pwd_value) < 0)
 		exit_with_err("chdir", strerror(errno), 1);
 	tmp = ft_strjoin("PWD=", old_pwd_value);
@@ -67,7 +67,7 @@ static void	change_dir(char *str)
 	char	*tmp;
 	char	*ret;
 
-	tmp = ft_strdup(get_env_via_key("PWD"));
+	tmp = ft_strdup(get_env_value_via_key("PWD"));
 	if (chdir(str) < 0)
 	{
 		free(tmp);
@@ -93,7 +93,7 @@ void	builtin_cd(t_cmd_node *head)
 	char		*str;
 
 	curr_node = head->next;
-	str = get_env_via_key("HOME");
+	str = get_env_value_via_key("HOME");
 	if (curr_node == NULL)
 		home_dir(str);
 	else if (ft_strcmp(curr_node->cmd, "~") == 0)

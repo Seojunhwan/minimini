@@ -6,13 +6,13 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 01:54:03 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 04:56:23 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_env_via_key(char *key)
+char	*get_env_value_via_key(char *key)
 {
 	t_env_node	*curr;
 

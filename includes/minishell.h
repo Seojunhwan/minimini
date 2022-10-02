@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 04:56:23 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void				init_env(char **envp);
 char				*extract_env_key(char *env);
 char				*extract_env_value(char *env);
 t_env_node			*create_env_node(char *key, char *value);
-char				*get_env_via_key(char *key);
+char				*get_env_value_via_key(char *key);
 t_env_node			*get_env_node_via_key(char *key);
 
 // echoctl
