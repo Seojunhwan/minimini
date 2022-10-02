@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:47 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/01 17:43:04 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 03:00:42 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ char	*get_pwd(void)
 
 	current_dir = getcwd(NULL, 0);
 	if (current_dir == NULL)
-	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		exit(1);
-	}
+		exit_with_err("get_pwd()", strerror(errno), 1);
 	return (current_dir);
 }
 
@@ -31,10 +28,7 @@ void	home_dir(char *str)
 	char	*pwd_value;
 
 	if (chdir(str) < 0)
-	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		exit(1);
-	}
+		exit_with_err("chdir()", strerror(errno), 1);
 	pwd_value = get_env_via_key("PWD");
 	tmp = ft_strjoin("OLDPWD=", pwd_value);
 	if (!modify_envp(tmp, "OLDPWD"))
@@ -55,10 +49,7 @@ void	old_dir(void)
 	old_pwd_value = ft_strdup(get_env_via_key("OLDPWD"));
 	pwd_value = ft_strdup(get_env_via_key("PWD"));
 	if (chdir(old_pwd_value) < 0)
-	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		exit(1);
-	}
+		exit_with_err("chdir", strerror(errno), 1);
 	tmp = ft_strjoin("PWD=", old_pwd_value);
 	free(old_pwd_value);
 	if (!modify_envp(tmp, "PWD"))
@@ -80,8 +71,7 @@ static void	change_dir(char *str)
 	if (chdir(str) < 0)
 	{
 		free(tmp);
-		printf("cd: no such file or directory: %s\n", str);
-		exit(1);
+		exit_with_err("cd: no such file or directory: ", str, 1);
 	}
 	else
 	{

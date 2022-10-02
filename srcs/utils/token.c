@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:51:08 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 18:33:21 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:40:28 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*extract_quote_token_from_line(char *line, int *i)
 		(*i)++;
 	if (line[*i] == '\0')
 	{
-		parse_error(1);
+		parse_error(0);
 		return (false);
 	}
 	token_str = ft_substr(line, start, *i - start);

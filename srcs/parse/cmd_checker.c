@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:36:53 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/02 16:35:31 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:34:05 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	is_valid_redirect_arg(t_cmd_node **curr_cmd)
 			(*curr_cmd)->type = REDIRARG;
 		}
 		else
-			return (parse_error(3));
+			return (parse_error(1));
 	}
 	if (type == HEREDOC)
 	{

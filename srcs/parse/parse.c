@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 02:26:09 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/02 21:00:20 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:52:03 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_readline(char **line)
 {
-	*line = readline("\033[91;1mmini_mini_mini_shell$ \033[0m");
+	*line = readline("\e[94;1mmini_mini_mini_shell$\e[0m ");
 	if (!*line)
 	{
 		printf("exit\n");

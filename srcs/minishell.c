@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/10/02 19:31:27 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:54:40 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	t_cmd_list	*cmd_list;
 
 	if (argc != 1)
-		exit_with_err("arg", NULL, 1);
+		exit_with_err("no no no no no argument!", NULL, 1);
 	(void)argv;
 	init_env(envp);
 	set_old_pwd();

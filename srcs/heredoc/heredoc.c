@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:45:27 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 01:01:37 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:33:38 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	heredoc_child(char *delimiter, int index)
 	if (fd < 0)
 	{
 		free(temp_name);
-		parse_error(5);
+		parse_error(3);
 		finish_heredoc(&line, fd, 1);
 	}
 	while (1)

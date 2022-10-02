@@ -6,11 +6,18 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 02:09:40 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 16:42:11 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:51:00 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static const char	*g_errors[] = {
+	"’(\") must be paired\n",
+	"syntax error near unexpected token\n",
+	"Invalid pipe\n",
+	"Failed to open file\n",
+};
 
 void	exit_with_err(char *msg, char *msg2, int error_no)
 {
@@ -27,25 +34,9 @@ void	exit_with_err(char *msg, char *msg2, int error_no)
 int	parse_error(int option)
 {
 	g_state.exit_status = 1;
-	if (option == 1)
-	{
+	printf("\e[101;97;1mmini_mini_mini_shell: ");
+	if (option == 1 || option == 3)
 		g_state.exit_status = 258;
-		printf("ERROR : ’(\") must be paired\n");
-	}
-	else if (option == 2)
-		printf("ERROR : Memory allocation failed\n");
-	else if (option == 3)
-	{
-		g_state.exit_status = 258;
-		printf("syntax error near unexpected token\n");
-	}
-	else if (option == 4)
-	{
-		printf("ERROR : Invaild pipe\n");
-	}
-	else if (option == 5)
-	{
-		printf("ERROR : Failed to open file\n");
-	}
+	printf("%s\e[0m", g_errors[option]);
 	return (false);
 }
