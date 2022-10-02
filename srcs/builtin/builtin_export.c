@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/02 22:10:52 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 04:31:44 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	export_wihtout_arg(t_cmd_node *head)
 			if (node->value == NULL)
 				printf("declare -x %s\n", node->key);
 			else
-				printf("declare -x %s=%s\n", node->key, node->value);
+				printf("declare -x %s=\"%s\"\n", node->key, node->value);
 			node = node->next;
 		}
 	}
@@ -69,17 +69,19 @@ void	builtin_export(t_cmd_node *node)
 int	modify_envp(char *str, char *key)
 {
 	t_env_node	*curr;
-	char		**split;
+	char		*temp;
 
 	curr = g_state.env_head;
 	while (curr != NULL)
 	{
 		if (ft_strcmp(curr->key, key) == 0)
 		{
+			temp = ft_strchr(str, '=');
+			if (!temp)
+				return (true);
+			temp++;
 			free(curr->value);
-			split = ft_split(str, '=');
-			curr->value = ft_strdup(split[1]);
-			free_split(split);
+			curr->value = ft_substr(temp, 0, ft_strlen(temp));
 			return (true);
 		}
 		curr = curr->next;
