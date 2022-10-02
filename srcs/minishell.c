@@ -95,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	init_env(envp);
+		init_env(envp);
 	set_old_pwd();
 	enable_signal();
 	while (1)

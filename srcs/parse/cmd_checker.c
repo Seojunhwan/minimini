@@ -125,7 +125,7 @@ static int	is_valid_redirect_arg(t_cmd_node **curr_cmd)
 	}
 	if (type == HEREDOC)
 	{
-		if (do_heredoc(curr_cmd))
+		if (do_heredoc(curr_cmd) == false)
 			return (false);
 	}
 	return (1);
