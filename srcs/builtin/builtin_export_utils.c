@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/02 22:10:24 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 04:55:57 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,13 @@
 t_env_node	*is_in_envp(char *str)
 {
 	t_env_node	*node;
-	char		**split;
+	char		*key;
 
-	node = g_state.env_head;
-	split = ft_split(str, '=');
-	while (node)
-	{
-		if (ft_strncmp(node->key, split[0], ft_strlen(split[0])) == 0)
-		{
-			free_split(split);
-			return (node);
-		}
-		node = node->next;
-	}
-	free_split(split);
-	return (NULL);
+	key = extract_env_key(str);
+	if (!key)
+		key = str;
+	node = get_env_node_via_key(key);
+	return (node);
 }
 
 static int	return_equal_sign_index(char *str)
@@ -59,7 +51,7 @@ void	new_export(char *str)
 		ft_substr(str, equal_index + 1, ft_strlen(str) - equal_index));
 	}
 	else
-		new_node = create_env_node(str, NULL);
+		new_node = create_env_node(ft_strdup(str), NULL);
 	curr = g_state.env_head;
 	if (curr == NULL)
 	{
