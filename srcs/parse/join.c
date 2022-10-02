@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:37:08 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/02 16:36:31 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 22:53:10 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ int	need_join(t_token_node *curr_token, char *line, int option)
 void	join_cmd(t_cmd_node **cmd_head, char *cmd)
 {
 	t_cmd_node		*last_cmd;
+	char			*temp;
 
 	last_cmd = *cmd_head;
 	while (last_cmd->next != NULL)
 		last_cmd = last_cmd->next;
-	last_cmd->cmd = ft_strjoin_with_free(last_cmd->cmd, cmd);
+	temp = last_cmd->cmd;
+	last_cmd->cmd = ft_strjoin(temp, cmd);
+	free(temp);
 }
 
 void	join_dquote(t_cmd_node **cmd_head, t_token_node **token_head)
