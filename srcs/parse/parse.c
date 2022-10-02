@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 02:26:09 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 02:52:03 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 07:23:42 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int	parse(t_cmd_list *cmd_list)
 
 	ft_readline(&line);
 	if (is_empty_line(line))
+	{
+		release_line(line);
 		return (false);
+	}
 	add_history(line);
 	if (tokenization(&token_head, line) == false)
 	{
