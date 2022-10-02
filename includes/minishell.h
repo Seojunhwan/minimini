@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/02 20:26:23 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:23:29 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,9 @@ void				free_split(char **tmp);
 int					do_heredoc(t_cmd_node **curr_cmd);
 void				move_heredoc_curser(int fd);
 void				remove_temp_file(void);
+void				finish_heredoc(char **line, int fd, int end_status);
+int					write_heredoc(int fd, char *line);
+
 //utils | string
 void				tolower_str(char *str);
 char				*get_lower_str(char *str);
