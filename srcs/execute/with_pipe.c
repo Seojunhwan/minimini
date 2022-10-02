@@ -31,10 +31,10 @@ static void	exe_one_cmd_with_pipe(t_cmd_node *node, int ***fd, \
 	envp_for_execve = set_envp();
 	if (execve(path, args, envp_for_execve) == -1)
 	{
-		//free_split(envp_for_execve);
+		free_split(envp_for_execve);
 		execve_error(strerror(errno), cmd_node);
 	}
-	//free_split(envp_for_execve);
+	free_split(envp_for_execve);
 }
 
 void	execute_with_pipe(t_cmd_list *list)

@@ -19,7 +19,6 @@ static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 	char		**args;
 	char		**envp_for_execve;
 
-
 	redir_in(node);
 	redir_out(node);
 	cmd_node = remove_redirection_in_cmd(node);
@@ -28,14 +27,8 @@ static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 	path = is_valid_cmd(cmd_node->cmd);
 	args = cmd_change_to_array(cmd_node);
 	envp_for_execve = set_envp();
-
 	if (execve(path, args, envp_for_execve) == -1)
 	{
-		// int i = 0;
-		// while (envp_for_execve[i])
-		// {
-		// 	printf("%s\n", envp_for_execve[i++]);
-		// }
 		free_split(envp_for_execve);
 		execve_error(strerror(errno), cmd_node);
 	}

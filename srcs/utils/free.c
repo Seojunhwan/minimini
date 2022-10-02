@@ -36,14 +36,11 @@ void	free_split(char **tmp)
 	cnt = 0;
 	while (tmp[++i])
 		cnt++;
-	//printf("free_size: %d\n", cnt);
 	i = -1;
 	while (++i < cnt)
 	{
-		//if (tmp[i] != NULL)
 		free(tmp[i]);
 	}
-	//if (tmp != NULL)
 	free(tmp);
 	tmp = NULL;
 }

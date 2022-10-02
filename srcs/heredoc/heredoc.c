@@ -122,8 +122,6 @@ int	do_heredoc(t_cmd_node **curr_cmd)
 			return (false);
 		}
 		(*curr_cmd)->prev->type = REDIRIN;
-		free((*curr_cmd)->prev->cmd);
-		(*curr_cmd)->prev->cmd = ft_strdup("<");
 		free((*curr_cmd)->cmd);
 		(*curr_cmd)->cmd = ft_strdup("heredoc_file");
 	}

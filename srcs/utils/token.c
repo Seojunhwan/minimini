@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static const	char *g_tables[] = {
+static const char	*g_tables[] = {
 	"",
 	"<",
 	">",

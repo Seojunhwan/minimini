@@ -113,11 +113,13 @@ void				disable_echoctl(void);
 int					parse(t_cmd_list *cmd_list);
 
 // * parse | token list
-t_token_node		*create_token_node(char	*line, int *i, enum e_token_type type);
+t_token_node		*create_token_node(char	*line, int *i, \
+					enum e_token_type type);
 t_cmd_node			*create_command_node(char *cmd, enum e_cmd_type type);
 void				token_lstadd_back(t_token_node **token_head, \
 					t_token_node **new_node);
-void				cmd_lstadd_back(t_cmd_node **cmd_head, t_cmd_node *new_node);
+void				cmd_lstadd_back(t_cmd_node **cmd_head, \
+					t_cmd_node *new_node);
 
 // * parse | line -> token
 int					tokenization(t_token_node **token_head, char *line);
@@ -134,18 +136,23 @@ char				*extract_special_token_from_line(char *line, int *i, \
 					enum e_token_type type);
 
 // * parse | join utils
-int					need_join(t_token_node *curr_token, char *line, int option);
+int					need_join(t_token_node *curr_token, char *line, \
+					int option);
 void				join_cmd(t_cmd_node **cmd_head, char *cmd);
-void				join_dquote(t_cmd_node **cmd_head, t_token_node **token_head);
+void				join_dquote(t_cmd_node **cmd_head, \
+					t_token_node **token_head);
 
 // * parse | make a new str utils
-void				make_new_dollar_string(int *i, t_token_node **curr, char **new_str);
-void				make_new_common_string(int *i, t_token_node **curr, char **new_str);
+void				make_new_dollar_string(int *i, t_token_node **curr, \
+					char **new_str);
+void				make_new_common_string(int *i, t_token_node **curr, \
+					char **new_str);
 void				make_new_str(char **new_str, t_token_node **token_head);
 
 // * parse | quote & double quote
 void				new_quote(t_cmd_node **cmd_head, t_token_node **token_head);
-void				new_dquote(t_cmd_node **cmd_head, t_token_node **token_head);
+void				new_dquote(t_cmd_node **cmd_head, \
+					t_token_node **token_head);
 void				dquote_dollar(char **new_str, char *key);
 
 // * parse | dollar
@@ -157,12 +164,6 @@ int					command_validator(t_cmd_list *cmd_list);
 // * signal
 void				enable_heredoc_signal(void);
 void				enable_signal(void);
-
-
-int					do_heredoc(t_cmd_node **curr_cmd);
-
-
-
 // error
 void				exit_with_err(char *msg, char *msg2, int error_no);
 int					parse_error(int option);
@@ -172,18 +173,18 @@ char				*ft_strjoin_with_free(char *s1, char *s2);
 
 // initializer
 t_cmd_list			*init_cmd(void);
-void				init_cmd_size(t_cmd_list *cmd_list, t_token_node *token_head);
-
+void				init_cmd_size(t_cmd_list *cmd_list, \
+					t_token_node *token_head);
 
 //builtin
 void				execute_builtin(t_cmd_node	*node);
 void				execute_one_builtin(t_cmd_node	*node);
 //builtin |pwd
-void				builtin_pwd();
+void				builtin_pwd(void);
 //builtin 			|echo
 void				builtin_echo(t_cmd_node *node);
 //builtin |env
-void				builtin_env();
+void				builtin_env(void);
 //builtin |exit
 void				builtin_exit_one_cmd(t_cmd_node *head);
 void				builtin_exit(t_cmd_node *head);
@@ -211,14 +212,14 @@ char				*get_pwd(void);
 //execute
 void				execute_cmd(t_cmd_list *cmd_line_list);
 void				execve_error(char *strerror, t_cmd_node *cmd_list);
-char				**set_envp();
+char				**set_envp(void);
 //execute |with pipe
 void				execute_with_pipe(t_cmd_list *list);
 //execute |without pipe
 void				execute_without_pipe(t_cmd_list *list);
 //execute |redirect in
 void				redir_in(t_cmd_node *node);
-char*				have_redirect_in(t_cmd_node *node);
+char				*have_redirect_in(t_cmd_node *node);
 t_cmd_node			*remove_redirection_in_cmd(t_cmd_node *node);
 //execute |redirect out
 void				redir_out(t_cmd_node *node);
@@ -226,13 +227,15 @@ t_cmd_node			*have_redirect_out(t_cmd_node *node);
 //execute |check cmd
 char				**cmd_change_to_array(t_cmd_node *node);
 int					add_cmd(t_cmd_node **cmd_head, t_cmd_node *new_node);
-char 				*is_valid_cmd(char *cmd);
+char				*is_valid_cmd(char *cmd);
 //execute |pipe, malloc
 void				close_fd(int ***fd, int size);
-void				free_variables(int size, int ***fd, pid_t **pid, int **status);
+void				free_variables(int size, int ***fd, pid_t **pid, \
+					int **status);
 void				close_wait(int ***fd, pid_t **pid, int *status, int size);
 void				pipe_process(int size, int ***fd);
-void				malloc_variables(int size, int ***fd, pid_t **pid, int **status);
+void				malloc_variables(int size, int ***fd, pid_t **pid, \
+					int **status);
 t_cmd_node			*cmd_dup(t_cmd_node *src_node);
 //utils | free
 void				free_array(int **tmp, int idx);
