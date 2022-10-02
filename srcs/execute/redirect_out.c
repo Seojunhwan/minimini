@@ -21,14 +21,20 @@ static void	do_redir_out(char *cmd)
 	{
 		fd = open(cmd, O_RDWR | O_TRUNC, 0644);
 		if (fd < 0)
+		{
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
+			exit(1);
+		}
 		close(fd);
 	}
 	else
 	{
 		fd = open(cmd, O_RDWR | O_CREAT, 0644);
 		if (fd < 0)
+		{
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
+			exit(1);
+		}
 		close(fd);
 	}
 }
@@ -42,7 +48,10 @@ static void	do_redir_append(char *cmd)
 	{
 		fd = open(cmd, O_RDWR | O_CREAT, 0644);
 		if (fd < 0)
+		{
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
+			exit(1);
+		}
 		close(fd);
 	}
 }

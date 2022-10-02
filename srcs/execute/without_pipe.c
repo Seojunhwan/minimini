@@ -12,6 +12,28 @@
 
 #include "../../includes/minishell.h"
 
+static int	is_having_redirect_in(t_cmd_node *node)
+{
+	while (node != NULL)
+	{
+		if (node->type == REDIRIN)
+			return (true);
+		node = node->next;
+	}
+	return (false);
+}
+
+static int	is_having_redirect_out(t_cmd_node *node)
+{
+	while (node != NULL)
+	{
+		if (node->type == REDIROUT || node->type == APPEND)
+			return (true);
+		node = node->next;
+	}
+	return (false);
+}
+
 static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 {
 	t_cmd_node	*cmd_node;
@@ -41,8 +63,8 @@ void	execute_without_pipe(t_cmd_list *list)
 	int			status;
 
 	if (list->cmd_heads[0]->type == BUILTIN \
-		&& have_redirect_in(list->cmd_heads[0]) == NULL \
-			&& have_redirect_out(list->cmd_heads[0]) == NULL)
+		&& is_having_redirect_in(list->cmd_heads[0]) == false \
+			&& is_having_redirect_out(list->cmd_heads[0]) == false)
 		execute_one_builtin(list->cmd_heads[0]);
 	else
 	{
