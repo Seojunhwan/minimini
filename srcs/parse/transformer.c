@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:21:51 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/02 17:14:14 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 22:57:57 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,22 @@ void	add_dollar_cmd(t_cmd_node **cmd_head, \
 {
 	t_token_node	*curr;
 	t_cmd_node		*new_cmd;
-	char			*cmd;
+	char			*converted_token;
 
 	curr = *token_head;
 	if (curr->next == NULL)
-		cmd = ft_strdup("$");
+		converted_token = ft_strdup("$");
 	else
-		cmd = transform_dollar_token(curr->next->token, curr->next->idx, line);
+		converted_token = transform_dollar_token(curr->next->token, \
+		curr->next->idx, line);
 	if (need_join(curr, line, 2))
 	{
-		join_cmd(cmd_head, cmd);
+		join_cmd(cmd_head, converted_token);
 		if (curr->next != NULL)
 			*token_head = curr->next;
 		return ;
 	}
-	new_cmd = create_command_node(cmd, COMMON);
+	new_cmd = create_command_node(converted_token, COMMON);
 	cmd_lstadd_back(cmd_head, new_cmd);
 	if (curr->next != NULL)
 		curr = curr->next;

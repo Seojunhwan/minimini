@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/02 19:59:32 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 22:10:52 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	builtin_export_one_cmd(t_cmd_node *node)
 			ft_putstr_fd(": not a valid identifier\n", STDERR_FILENO);
 			g_state.exit_status = 1;
 		}
-		else //if ((has_equal_sign(node->cmd) == true))
+		else
 		{
 			node_in_envp = is_in_envp(node->cmd);
 			if (node_in_envp != NULL)

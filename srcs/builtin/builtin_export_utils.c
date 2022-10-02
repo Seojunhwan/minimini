@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/02 17:37:37 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 22:10:24 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	new_export(char *str)
 	if (has_equal_sign(str))
 	{
 		equal_index = return_equal_sign_index(str);
-		new_node = create_env_node(ft_substr(str, 0, equal_index), ft_substr(str, equal_index + 1, ft_strlen(str) - equal_index));
+		new_node = create_env_node(ft_substr(str, 0, equal_index), \
+		ft_substr(str, equal_index + 1, ft_strlen(str) - equal_index));
 	}
 	else
 		new_node = create_env_node(str, NULL);
