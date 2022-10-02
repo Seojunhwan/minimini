@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:45:27 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 18:25:06 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 17:17:42 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,8 @@ int	do_heredoc(t_cmd_node **curr_cmd)
 	{
 		waitpid(pid, &status, 0);
 		ret = status / 256;
-
 		enable_signal();
-		if (ret == 130 || ret == 1)     //hyun_TODO
+		if (ret == 130 || ret == 1)
 		{
 			g_state.exit_status = 1;
 			remove_temp_file();

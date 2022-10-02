@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:05 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/01 19:04:06 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 17:18:01 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	**set_envp(void)
 	i = 0;
 	while (node)
 	{
-		env[i++] = ft_strjoin_with_free(ft_strjoin(node->key, "="), ft_strdup(node->value));
+		env[i++] = ft_strjoin_with_free(ft_strjoin(node->key, "="), \
+		ft_strdup(node->value));
 		node = node->next;
 	}
 	env[i] = NULL;

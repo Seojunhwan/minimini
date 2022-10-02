@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:27:57 by junseo            #+#    #+#             */
-/*   Updated: 2022/09/30 02:57:15 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 16:35:35 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ t_cmd_node	*create_command_node(char *cmd, enum e_cmd_type type)
 	new_node->prev = NULL;
 	return (new_node);
 }
-

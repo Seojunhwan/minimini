@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 03:13:15 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 21:46:07 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 16:41:34 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	tokenization(t_token_node **token_head, char *line)
 		while (line[i] != '\0' && ft_isspace(line[i]))
 			i++;
 		if (line[i] == '\0')
-			return true;
+			return (true);
 		type = get_token_type(line, i);
 		if (type == TO_APPEND || type == TO_HEREDOC)
 			i++;

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 18:25:06 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 16:35:16 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <string.h> // error?
-# include <errno.h> // error
+# include <string.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # include <fcntl.h>
 # include <sys/stat.h>
@@ -244,5 +244,8 @@ void				free_split(char **tmp);
 int					do_heredoc(t_cmd_node **curr_cmd);
 void				move_heredoc_curser(int fd);
 void				remove_temp_file(void);
+//utils | string
+void				tolower_str(char *str);
+char				*get_lower_str(char *str);
 
 #endif

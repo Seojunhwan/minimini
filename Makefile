@@ -6,7 +6,7 @@
 #    By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#              #
-#    Updated: 2022/09/30 03:26:18 by junseo           ###   ########.fr        #
+#    Updated: 2022/10/02 17:32:34 by junseo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 DEBUG_FLAGS		=	-g -fsanitize=address
 
-#INCLUDE 		=	-I./includes -I/Users/junseo/.brew/opt/readline/include
+# INCLUDE 		=	-I./includes -I/Users/junseo/.brew/opt/readline/include
 INCLUDE 		=	-I./includes -I/Users/hyuncho/.brew/opt/readline/include
 
 DIR_BASE		=	./srcs/
@@ -72,7 +72,8 @@ UTIL_FILES		=	custom_fuc	\
 					token	\
 					heredoc	\
 					signal	\
-					free
+					free	\
+					string
 
 SRCS			=	$(addprefix $(DIR_BASE), $(addsuffix .c, $(NAME)))	\
 					$(addprefix $(DIR_BASE), $(addprefix $(DIR_PARSE), $(addsuffix .c, $(PARSE_FILES))))	\
@@ -86,7 +87,7 @@ OBJS			=	$(SRCS:.c=.o)
 
 LIBFT_DIR		=	./libft/
 
-#LIBRARY			=	-L/Users/junseo/.brew/opt/readline/lib -lreadline -L$(LIBFT_DIR) -lft
+# LIBRARY			=	-L/Users/junseo/.brew/opt/readline/lib -lreadline -L$(LIBFT_DIR) -lft
 LIBRARY			=	-L/Users/hyuncho/.brew/opt/readline/lib -lreadline -L$(LIBFT_DIR) -lft
 
 all		: $(NAME)

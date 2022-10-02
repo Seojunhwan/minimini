@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:37:08 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 16:46:02 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 16:36:31 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,12 @@ int	need_join(t_token_node *curr_token, char *line, int option)
 	else
 		c = '\0';
 	if (option == 1)
-	{
-		if (c != '\0' && !(c == ' ' || (c >= 9 && c <= 13)))
-			return (true);
-		return (false);
-	}
+		return (c != '\0' && !(c == ' ' || (c >= 9 && c <= 13)));
 	else if (option == 2)
-	{
-		if (c != '\0' && (c == '\'' || c == '"' || \
-			!(c == ' ' || (c >= 9 && c <= 13))))
-			return (true);
-		return (false);
-	}
+		return (c != '\0' && (c == '\'' || c == '"' || \
+			!(c == ' ' || (c >= 9 && c <= 13))));
 	else
-	{
-		if (c != '\0' && (c == '\'' || c == '"'))
-			return (true);
-		return (false);
-	}
+		return (c != '\0' && (c == '\'' || c == '"'));
 }
 
 void	join_cmd(t_cmd_node **cmd_head, char *cmd)

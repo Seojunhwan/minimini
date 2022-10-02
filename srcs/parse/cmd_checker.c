@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:36:53 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 22:49:48 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 16:35:31 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,54 +30,14 @@ static int	is_echo_option(t_cmd_node *node)
 	int	i;
 
 	i = 0;
-	if (node != NULL && node->cmd[i++] == '-') //ft_strcmp(node->cmd, "-n") == 0) // node->cmd[i++] == '-')
+	if (node != NULL && node->cmd[i++] == '-')
 	{
 		while (node->cmd[i] == 'n')
-		{
 			i++;
-		}
 		if (node->cmd[i] == '\0')
 			return (true);
-		else
-			return (false);
-		// while (node->cmd[i] != '\0')
-		// {
-		// 	if (node->cmd[i] != 'n')
-		// 		return (false);
-		// 	i++;
-		// }
-		// if (node->cmd[--i] != 'n')
-		// 		return (false);
-		//return (1);
 	}
 	return (false);
-}
-
-void	tolower_str(char *str)
-{
-	int	idx;
-
-	idx = 0;
-	while (str[idx] != '\0')
-	{
-		str[idx] = ft_tolower(str[idx]);
-		idx++;
-	}
-}
-
-char	*get_lower_str(char *str)
-{
-	int		len;
-	char	*ret;
-
-	len = ft_strlen(str);
-	if (len == 0)
-		return (ft_strdup(""));
-	ret = ft_strdup(str);
-	if (ret == 0)
-		return (false);
-	tolower_str(ret);
-	return (ret);
 }
 
 static int	is_builtin(t_cmd_node **curr)

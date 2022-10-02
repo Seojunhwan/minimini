@@ -6,13 +6,14 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:21:51 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 16:57:18 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 17:14:14 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	add_quote_cmd(t_cmd_node **cmd_head, t_token_node **token_head, char *line)
+void	add_quote_cmd(t_cmd_node **cmd_head, \
+		t_token_node **token_head, char *line)
 {
 	t_token_node	*curr;
 
@@ -34,7 +35,8 @@ void	add_quote_cmd(t_cmd_node **cmd_head, t_token_node **token_head, char *line)
 	return ;
 }
 
-void	add_dollar_cmd(t_cmd_node **cmd_head, t_token_node **token_head, char *line)
+void	add_dollar_cmd(t_cmd_node **cmd_head, \
+		t_token_node **token_head, char *line)
 {
 	t_token_node	*curr;
 	t_cmd_node		*new_cmd;
@@ -44,12 +46,12 @@ void	add_dollar_cmd(t_cmd_node **cmd_head, t_token_node **token_head, char *line
 	if (curr->next == NULL)
 		cmd = ft_strdup("$");
 	else
-		cmd	= transform_dollar_token(curr->next->token, curr->next->idx, line);
-	if (need_join(curr, line, 2)) // 만약 현재 node command 에 조인을 해야한다면
+		cmd = transform_dollar_token(curr->next->token, curr->next->idx, line);
+	if (need_join(curr, line, 2))
 	{
 		join_cmd(cmd_head, cmd);
 		if (curr->next != NULL)
-			*token_head = curr->next; // 가독성 구림
+			*token_head = curr->next;
 		return ;
 	}
 	new_cmd = create_command_node(cmd, COMMON);
@@ -59,23 +61,25 @@ void	add_dollar_cmd(t_cmd_node **cmd_head, t_token_node **token_head, char *line
 	*token_head = curr;
 }
 
-void	add_common_cmd(t_cmd_node **cmd_head, t_token_node **token_head, char *line)
+void	add_common_cmd(t_cmd_node **cmd_head, \
+		t_token_node **token_head, char *line)
 {
 	t_token_node	*curr;
 	t_cmd_node		*new_cmd;
 
 	curr = *token_head;
-	if (need_join(curr, line, 3)) // 만약 현재 node command 에 조인을 해야한다면
+	if (need_join(curr, line, 3))
 	{
 		join_cmd(cmd_head, curr->token);
 		return ;
 	}
-	new_cmd = create_command_node(ft_strdup(curr->token), (enum e_cmd_type)curr->type);
+	new_cmd = create_command_node(ft_strdup(curr->token), \
+			(enum e_cmd_type)curr->type);
 	cmd_lstadd_back(cmd_head, new_cmd);
-	return ;
 }
 
-void	convert_token_to_command(t_cmd_node **cmd_head, t_token_node **token_head, char *line)
+void	convert_token_to_command(t_cmd_node **cmd_head, \
+		t_token_node **token_head, char *line)
 {
 	t_token_node	*curr;
 
