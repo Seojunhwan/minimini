@@ -85,7 +85,7 @@ static void	change_dir(char *str)
 	}
 	else
 	{
-		ret = ft_strjoin("PWD=", get_pwd());
+		ret = ft_strjoin_with_free(ft_strdup("PWD="), get_pwd());
 		if (!modify_envp(ret, "PWD"))
 			new_export(ret);
 		free(ret);

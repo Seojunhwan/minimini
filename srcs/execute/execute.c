@@ -57,7 +57,7 @@ char	**set_envp(void)
 	i = 0;
 	while (node)
 	{
-		env[i++] = ft_strjoin(ft_strjoin(node->key, "="), node->value);
+		env[i++] = ft_strjoin_with_free(ft_strjoin(node->key, "="), ft_strdup(node->value));
 		node = node->next;
 	}
 	env[i] = NULL;

@@ -114,6 +114,7 @@ int	do_heredoc(t_cmd_node **curr_cmd)
 	{
 		waitpid(pid, &status, 0);
 		ret = status / 256;
+
 		enable_signal();
 		if (ret == 130 || ret == 1)     //hyun_TODO
 		{

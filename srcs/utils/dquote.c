@@ -31,7 +31,7 @@ void	dquote_dollar(char **new_str, char *key)
 
 	if (ft_strcmp(key, "?") == 0)
 	{
-		*new_str = ft_strjoin(*new_str, ft_itoa(g_state.exit_status));
+		*new_str = ft_strjoin_with_free(*new_str, ft_itoa(g_state.exit_status));
 		return ;
 	}
 	value = ft_strdup(get_env_via_key(key));

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/01 16:42:33 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/02 16:07:16 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	new_export(char *str)
 	{
 		split = ft_split(str, '=');
 		new_node = create_env_node(split[0], split[1]);
+		free_split(split);
 	}
 	else
 		new_node = create_env_node(str, NULL);
