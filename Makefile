@@ -6,14 +6,14 @@
 #    By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#              #
-#    Updated: 2022/10/03 16:23:58 by junseo           ###   ########.fr        #
+#    Updated: 2022/10/03 17:44:13 by junseo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
 
 CC				=	cc
-CFLAGS			=	#-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 DEBUG_FLAGS		=	-g -fsanitize=address
 
 INCLUDE 		=	-I./includes -I/Users/junseo/.brew/opt/readline/include

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:08 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/03 14:52:51 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 17:44:28 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	wait_child(void)
 void	close_wait(int ***fd, pid_t **pid, int **status, int size)
 {
 	int	i;
-	int	signo;
 
 	set_signal(CUSTOM, CUSTOM);
 	i = 0;
