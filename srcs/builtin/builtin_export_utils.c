@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/03 04:55:57 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 10:15:15 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_env_node	*is_in_envp(char *str)
 	if (!key)
 		key = str;
 	node = get_env_node_via_key(key);
+	free(key);
 	return (node);
 }
 
