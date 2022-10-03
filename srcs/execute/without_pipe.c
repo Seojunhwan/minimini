@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:14 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/03 14:48:06 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 21:00:19 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 	redir_in(node);
 	redir_out(node);
 	cmd_node = remove_redirection_in_cmd(node);
+	if (cmd_node == NULL)
+		exit(0);
 	if (cmd_node->type == BUILTIN)
 		execute_builtin(cmd_node);
 	path = is_valid_cmd(cmd_node->cmd);
