@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:50 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 17:33:30 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ static void	old_dir_single(void)
 	char	*tmp;
 
 	old_pwd_value = ft_strdup(get_env_value_via_key("OLDPWD"));
-	pwd_value = ft_strdup(get_env_value_via_key("PWD"));
 	if (chdir(old_pwd_value) < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		g_state.exit_status = 1;
+		free(old_pwd_value);
 		return ;
 	}
+	pwd_value = ft_strdup(get_env_value_via_key("PWD"));
 	tmp = ft_strjoin("PWD=", old_pwd_value);
 	free(old_pwd_value);
 	if (!modify_envp(tmp, "PWD"))
@@ -65,23 +66,25 @@ static void	old_dir_single(void)
 static void	change_dir_single(char *str)
 {
 	char	*tmp;
-	char	*ret;	
+	char	*ret;
+	char	*curr_pwd;
 
-	tmp = ft_strdup(get_env_value_via_key("PWD"));
 	if (chdir(str) < 0)
 	{
-		free(tmp);
 		printf("cd: no such file or directory: %s\n", str);
 		g_state.exit_status = 1;
 	}
 	else
 	{
-		ret = ft_strjoin_with_free(ft_strdup("PWD="), get_pwd());
+		curr_pwd = get_pwd();
+		if (curr_pwd == NULL)
+			return ;
+		tmp = ft_strdup(get_env_value_via_key("PWD"));
+		ret = ft_strjoin_with_free(ft_strdup("PWD="), curr_pwd);
 		if (!modify_envp(ret, "PWD"))
 			new_export(ret);
 		free(ret);
-		ret = ft_strjoin("OLDPWD=", tmp);
-		free(tmp);
+		ret = ft_strjoin_with_free(ft_strdup("OLDPWD="), tmp);
 		if (!modify_envp(ret, "OLDPWD"))
 			new_export(ret);
 		free(ret);
