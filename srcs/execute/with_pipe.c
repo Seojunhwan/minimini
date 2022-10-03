@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:13 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/01 18:45:11 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 14:53:21 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	execute_with_pipe(t_cmd_list *list)
 	malloc_variables(list->size, &fd, &pid, &status);
 	pipe_process(list->size, &fd);
 	idx = -1;
+	set_signal(DEFAULT, DEFAULT);
 	while (++idx < list->size)
 	{
 		pid[idx] = fork();
@@ -58,10 +59,9 @@ void	execute_with_pipe(t_cmd_list *list)
 				dup2(fd[idx - 1][0], STDIN_FILENO);
 			if (idx < list->size - 1)
 				dup2(fd[idx][1], STDOUT_FILENO);
-			exe_one_cmd_with_pipe(list->cmd_heads[idx], &fd, \
-										list->size);
+			exe_one_cmd_with_pipe(list->cmd_heads[idx], &fd, list->size);
 		}
+		set_signal(IGNORE, IGNORE);
 	}
-	close_wait(&fd, &pid, status, list->size);
-	free_variables(list->size, &fd, &pid, &status);
+	close_wait(&fd, &pid, &status, list->size);
 }

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 13:54:34 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_env(envp);
 	set_old_pwd();
-	enable_signal();
+	set_signal(CUSTOM, CUSTOM);
 	while (1)
 	{
 		disable_echoctl();

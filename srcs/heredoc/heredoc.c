@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:45:27 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 02:33:38 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 14:41:44 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	heredoc_child(char *delimiter, int index)
 	char	*line;
 	char	*temp_name;
 
-	enable_heredoc_signal();
 	line = NULL;
 	temp_name = ft_strjoin_with_free(ft_strdup("heredoc_file"), ft_itoa(index));
 	fd = open(temp_name, O_RDWR | O_CREAT | O_TRUNC, 0666);
@@ -88,19 +87,19 @@ int	do_heredoc(t_cmd_node **curr_cmd)
 	int			status;
 	int			heredoc_index;
 
-	signal(SIGQUIT, SIG_IGN);
+	set_signal(DEFAULT, CUSTOM);
 	heredoc_index = get_file_index(0);
 	pid = fork();
 	if (pid == 0)
 		heredoc_child((*curr_cmd)->cmd, heredoc_index);
 	else
 	{
+		set_signal(IGNORE, IGNORE);
 		waitpid(pid, &status, 0);
-		enable_signal();
+		set_signal(CUSTOM, CUSTOM);
 		if (status / 256 == 130 || status / 256 == 1)
 		{
 			g_state.exit_status = 1;
-			remove_temp_file();
 			return (false);
 		}
 		(*curr_cmd)->prev->type = REDIRIN;

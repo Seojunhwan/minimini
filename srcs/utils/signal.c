@@ -6,72 +6,40 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:43:20 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/01 18:25:06 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 13:53:59 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	sigint_handler(int sig)
+void	signal_handler(int signo)
 {
-	pid_t	pid;
-
-	pid = waitpid(-1, NULL, WNOHANG);
-	if (sig == SIGINT)
+	if (signo == SIGINT)
 	{
-		if (pid == -1)
-		{
-			ft_putendl_fd("", STDOUT_FILENO);
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-			g_state.exit_status = 1;
-		}
-		else
-		{
-			g_state.exit_status = 130;
-			ft_putendl_fd("", STDOUT_FILENO);
-		}
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	if (signo == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
 
-void	sigquit_handler(int sig)
+void	set_signal(enum e_sig_type sig_int, enum e_sig_type sig_quit)
 {
-	pid_t	pid;
-
-	pid = waitpid(-1, NULL, WNOHANG);
-	if (sig == SIGQUIT)
-	{
-		if (pid == -1)
-		{
-			rl_on_new_line();
-			rl_redisplay();
-		}
-		else
-		{
-			g_state.exit_status = 131;
-			ft_putstr_fd("Quit: ", STDOUT_FILENO);
-			ft_putnbr_fd(sig, STDOUT_FILENO);
-			ft_putendl_fd("", STDOUT_FILENO);
-		}
-	}
-}
-
-void	sig_heredoc_handler(int sig)
-{
-	(void)sig;
-	ft_putendl_fd("", STDOUT_FILENO);
-	exit(130);
-}
-
-void	enable_heredoc_signal(void)
-{
-	signal(SIGINT, sig_heredoc_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	enable_signal(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	if (sig_int == IGNORE)
+		signal(SIGINT, SIG_IGN);
+	if (sig_int == DEFAULT)
+		signal(SIGINT, SIG_DFL);
+	if (sig_int == CUSTOM)
+		signal(SIGINT, signal_handler);
+	if (sig_quit == IGNORE)
+		signal(SIGQUIT, SIG_IGN);
+	if (sig_quit == DEFAULT)
+		signal(SIGQUIT, SIG_DFL);
+	if (sig_quit == CUSTOM)
+		signal(SIGQUIT, signal_handler);
 }

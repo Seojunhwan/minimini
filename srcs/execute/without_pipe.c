@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:14 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/01 19:04:31 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 14:48:06 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	exec_one_cmd_without_pipe(t_cmd_node *node)
 		execve_error(strerror(errno), cmd_node);
 	}
 	free_split(envp_for_execve);
+	exit(1);
 }
 
 void	execute_without_pipe(t_cmd_list *list)
@@ -68,17 +69,17 @@ void	execute_without_pipe(t_cmd_list *list)
 		execute_one_builtin(list->cmd_heads[0]);
 	else
 	{
+		set_signal(DEFAULT, DEFAULT);
 		pid = fork();
 		if (pid < 0)
 			exit(1);
 		if (pid == 0)
-		{
 			exec_one_cmd_without_pipe(list->cmd_heads[0]);
-			exit(1);
-		}
 		else
 		{
-			waitpid(pid, &status, 0);
+			set_signal(IGNORE, IGNORE);
+			wait_child();
+			set_signal(CUSTOM, CUSTOM);
 			if (!WIFSIGNALED(status))
 				g_state.exit_status = status / 256;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuncho <hyuncho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:22:08 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/09/30 17:22:21 by hyuncho          ###   ########.fr       */
+/*   Updated: 2022/10/03 14:52:51 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,33 @@ void	pipe_process(int size, int ***fd)
 	}
 }
 
-void	close_wait(int ***fd, pid_t **pid, int *status, int size)
+void	wait_child(void)
+{
+	int		status;
+	int		signo;
+
+	while (wait(&status) != -1)
+	{
+		if (WIFSIGNALED(status))
+		{
+			signo = WTERMSIG(status);
+			if (signo == SIGINT)
+				ft_putstr_fd("\n", STDERR_FILENO);
+			if (signo == SIGQUIT)
+				ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+			g_state.exit_status = 128 + signo;
+		}
+		else
+			g_state.exit_status = WEXITSTATUS(status);
+	}
+}
+
+void	close_wait(int ***fd, pid_t **pid, int **status, int size)
 {
 	int	i;
+	int	signo;
 
+	set_signal(CUSTOM, CUSTOM);
 	i = 0;
 	while (i < size - 1)
 	{
@@ -34,14 +57,8 @@ void	close_wait(int ***fd, pid_t **pid, int *status, int size)
 		close((*fd)[i][1]);
 		i++;
 	}
-	i = 0;
-	while (i < size)
-	{
-		waitpid((*pid)[i], &status[i], 0);
-		if (!WIFSIGNALED(status[i]))
-			g_state.exit_status = status[i] / 256;
-		i++;
-	}
+	wait_child();
+	free_variables(size, fd, pid, status);
 }
 
 void	free_variables(int size, int ***fd, pid_t **pid, int **status)

@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 05:08:01 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 14:53:06 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ enum	e_cmd_type
 	REDIRARG,
 	BUILTIN,
 	OPTION
+};
+
+enum	e_sig_type
+{
+	CUSTOM,
+	DEFAULT,
+	IGNORE
 };
 
 typedef struct s_token_node		t_token_node;
@@ -163,8 +170,8 @@ char				*transform_dollar_token(char *str, int i, char *line);
 int					command_validator(t_cmd_list *cmd_list);
 
 // * signal
-void				enable_heredoc_signal(void);
-void				enable_signal(void);
+void	set_signal(enum e_sig_type sig_int, enum e_sig_type sig_quit);
+
 // error
 void				exit_with_err(char *msg, char *msg2, int error_no);
 int					parse_error(int option);
@@ -233,7 +240,7 @@ char				*is_valid_cmd(char *cmd);
 void				close_fd(int ***fd, int size);
 void				free_variables(int size, int ***fd, pid_t **pid, \
 					int **status);
-void				close_wait(int ***fd, pid_t **pid, int *status, int size);
+void				close_wait(int ***fd, pid_t **pid, int **status, int size);
 void				pipe_process(int size, int ***fd);
 void				malloc_variables(int size, int ***fd, pid_t **pid, \
 					int **status);
@@ -241,6 +248,7 @@ t_cmd_node			*cmd_dup(t_cmd_node *src_node);
 //utils | free
 void				free_array(int **tmp, int idx);
 void				free_split(char **tmp);
+void				wait_child(void);
 //utils | heredoc
 int					do_heredoc(t_cmd_node **curr_cmd);
 void				move_heredoc_curser(int fd);
