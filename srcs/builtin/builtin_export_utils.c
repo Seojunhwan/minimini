@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:20:59 by hyuncho           #+#    #+#             */
-/*   Updated: 2022/10/03 10:15:15 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 18:05:55 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_env_node	*is_in_envp(char *str)
 	char		*key;
 
 	key = extract_env_key(str);
-	if (!key)
-		key = str;
+	if (key == NULL)
+		key = ft_strdup(str);
 	node = get_env_node_via_key(key);
 	free(key);
 	return (node);
