@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:40:22 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/02 16:41:06 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 10:55:22 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	make_new_dollar_string(int *i, t_token_node **curr, char **new_str)
 		(*i)++;
 	temp_str = ft_substr((*curr)->token, start, *i - start);
 	if (ft_strcmp(temp_str, "") == 0)
-		*new_str = ft_strjoin_with_free(*new_str, "$");
+		*new_str = ft_strjoin_with_free(*new_str, ft_strdup("$"));
 	else
 		dquote_dollar(new_str, temp_str);
 	free(temp_str);
