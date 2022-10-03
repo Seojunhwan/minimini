@@ -58,6 +58,8 @@ static void	old_dir_single(void)
 	if (!modify_envp(tmp, "OLDPWD"))
 		new_export(tmp);
 	free(tmp);
+	if (get_env_value_via_key("PWD") != NULL)
+		printf("%s\n", get_env_value_via_key("PWD"));
 }
 
 static void	change_dir_single(char *str)

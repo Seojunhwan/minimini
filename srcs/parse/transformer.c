@@ -53,6 +53,7 @@ void	add_dollar_cmd(t_cmd_node **cmd_head, \
 		join_cmd(cmd_head, converted_token);
 		if (curr->next != NULL)
 			*token_head = curr->next;
+		free(converted_token); ///free???
 		return ;
 	}
 	new_cmd = create_command_node(converted_token, COMMON);
