@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:24:10 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 14:53:06 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:24:45 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ char				*transform_dollar_token(char *str, int i, char *line);
 int					command_validator(t_cmd_list *cmd_list);
 
 // * signal
-void	set_signal(enum e_sig_type sig_int, enum e_sig_type sig_quit);
+void				set_signal(enum e_sig_type sig_int, \
+					enum e_sig_type sig_quit);
 
 // error
 void				exit_with_err(char *msg, char *msg2, int error_no);

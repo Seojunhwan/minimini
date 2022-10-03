@@ -6,7 +6,7 @@
 /*   By: junseo <junseo@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:21:51 by junseo            #+#    #+#             */
-/*   Updated: 2022/10/03 02:40:17 by junseo           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:23:39 by junseo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	add_dollar_cmd(t_cmd_node **cmd_head, \
 		join_cmd(cmd_head, converted_token);
 		if (curr->next != NULL)
 			*token_head = curr->next;
-		free(converted_token); ///free???
+		free(converted_token);
 		return ;
 	}
 	new_cmd = create_command_node(converted_token, COMMON);
